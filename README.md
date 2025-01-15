@@ -1,16 +1,16 @@
-# Lexlet
+# Mathlet
 
-A spatial word game.
+A spatial math game.
 
 **Players:** 1
 
 **Time:** 5 minutes
 
-[Play Now!](https://lexlet.com/)
+[Play Now!](https://skedwards88.github.io/mathlet)
 
 <img src="src/images/icon_512.png" alt="game icon" width="70"/>
 
-Do you have feedback or ideas for improvement? [Open an issue](https://github.com/skedwards88/lexlet/issues/new).
+Do you have feedback or ideas for improvement? [Open an issue](https://github.com/skedwards88/mathlet/issues/new).
 
 Want more games? Visit [SECT Games](https://skedwards88.github.io/).
 

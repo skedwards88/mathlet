@@ -21,7 +21,7 @@ async function handleInstall(installPromptEvent, setInstallPromptEvent) {
   }
 }
 
-export default function Lexlet({
+export default function Mathlet({
   setDisplay,
   installPromptEvent,
   showInstallButton,
@@ -32,10 +32,10 @@ export default function Lexlet({
   dispatchGameState,
 }) {
   React.useEffect(() => {
-    window.localStorage.setItem("dailyLexletState", JSON.stringify(gameState));
+    window.localStorage.setItem("dailyMathletState", JSON.stringify(gameState));
   }, [gameState]);
 
-  const isGameOver = gameState.clueMatches.every((i) => i);
+  const isGameOver = false // todo gameState.clueMatches.every((i) => i);
 
   if (!sawWhatsNew) {
     return (
@@ -49,7 +49,7 @@ export default function Lexlet({
   return (
     <div
       className="App"
-      id="lexlet"
+      id="mathlet"
       onPointerUp={(e) => {
         e.preventDefault();
 
@@ -91,7 +91,14 @@ export default function Lexlet({
           <></>
         )}
       </div>
-      <Clues
+      <div id="clues">
+      <div className={`clue`}>{gameState.solutions[0]}</div>
+      <div className={`clue`}>{gameState.solutions[1]}</div>
+      <div className={`clue`}>{gameState.solutions[2]}</div>
+      <div className={`clue`}>{gameState.solutions[3]}</div>
+      <div className={`clue`}>{gameState.solutions[4]}</div>
+      </div>
+      {/* <Clues
         clueMatches={gameState.clueMatches}
         hints={gameState.hints}
         clueColors={gameState.clueIndexes.map((clue) =>
@@ -101,7 +108,7 @@ export default function Lexlet({
           clue.map((index) => gameState.letters[index]),
         )}
         dispatchGameState={dispatchGameState}
-      ></Clues>
+      ></Clues> */}
       {isGameOver ? (
         <GameOver
           hints={gameState.hints}
@@ -129,7 +136,7 @@ export default function Lexlet({
         letters={gameState.letters}
         colors={gameState.colors}
         playedIndexes={gameState.playedIndexes}
-        gameOver={gameState.clueMatches.every((i) => i)}
+        // gameOver={gameState.clueMatches.every((i) => i)} todo
         dispatchGameState={dispatchGameState}
       ></Board>
     </div>

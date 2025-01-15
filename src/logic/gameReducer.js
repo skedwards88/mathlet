@@ -3,7 +3,6 @@ import {isKnown} from "@skedwards88/word_logic";
 import {checkIfNeighbors} from "@skedwards88/word_logic";
 import {arraysMatchQ} from "@skedwards88/word_logic";
 import {gameInit} from "./gameInit";
-import {trie} from "./trie";
 
 function isYesterday(timestamp) {
   return isNDaysAgo(timestamp, 1);
@@ -206,7 +205,7 @@ export function gameReducer(currentGameState, payload) {
       .map((index) => currentGameState.letters[index])
       .join("")
       .toUpperCase();
-    const {isWord} = isKnown(word, trie);
+    const {isWord} = isKnown(word, []);
     if (!isWord && !matchesSolution) {
       return {
         ...currentGameState,

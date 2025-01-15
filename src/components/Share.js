@@ -3,9 +3,9 @@ import React from "react";
 function handleShare(text) {
   navigator
     .share({
-      title: "Lexlet",
+      title: "Mathlet",
       text: `${text}\n\n`,
-      url: "https://lexlet.com/",
+      url: "https://skedwards88.github.io/mathlet",
     })
     .then(() => console.log("Successful share"))
     .catch((error) => {
@@ -21,7 +21,9 @@ function handleShare(text) {
 
 function handleCopy(text) {
   try {
-    navigator.clipboard.writeText(`${text}\n\nhttps://lexlet.com/`);
+    navigator.clipboard.writeText(
+      `${text}\n\nhttps://skedwards88.github.io/mathlet`,
+    );
   } catch (error) {
     console.log(error);
   }

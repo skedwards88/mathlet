@@ -72,9 +72,7 @@ module.exports = (env, argv) => {
     clientsClaim: true,
     // This skips the service worker waiting phase, meaning the service worker activates as soon as it's finished installing
     skipWaiting: true,
-    cacheId: `lexlet-${packageJson.version}`,
-    // special case to cache word list for offline play
-    maximumFileSizeToCacheInBytes: 4200000,
+    cacheId: `mathlet-${packageJson.version}`,
   });
 
   const plugins =
@@ -109,10 +107,6 @@ module.exports = (env, argv) => {
       filename: "bundle.[fullhash].js",
       path: path.resolve(__dirname, "dist"),
       clean: true, // removes unused files from output dir
-    },
-    performance: {
-      maxEntrypointSize: 2700000, // special case to cache word list for offline play
-      maxAssetSize: 2700000, // special case to cache word list for offline play
     },
     devServer: {
       static: "./dist",

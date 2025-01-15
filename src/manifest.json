@@ -1,13 +1,13 @@
 {
-  "name": "Lexlet Word Game",
-  "short_name": "Lexlet",
-  "description": "A spatial word game",
-  "id": "?lexlet=20240502",
+  "name": "Mathlet",
+  "short_name": "Mathlet",
+  "description": "A spatial math game",
+  "id": "?mathlet=20240502",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",
   "orientation": "portrait",
-  "start_url": "https://lexlet.com",
+  "start_url": "https://skedwards88.github.io/mathlet",
   "background_color": "#373647",
   "theme_color": "#373647",
   "shortcuts": [],
@@ -42,56 +42,56 @@
       "sizes": "720x1280",
       "type": "image/png",
       "platform": "narrow",
-      "label": "New game of Lexlet"
+      "label": "New game of Mathlet"
     },
     {
       "src": "screenshot_new_1080_1080.png",
       "sizes": "1080x1080",
       "type": "image/png",
       "platform": "wide",
-      "label": "New game of Lexlet"
+      "label": "New game of Mathlet"
     },
     {
       "src": "screenshot_partial_720_1280.png",
       "sizes": "720x1280",
       "type": "image/png",
       "platform": "narrow",
-      "label": "In progress word in Lexlet"
+      "label": "In progress solution in Mathlet"
     },
     {
       "src": "screenshot_partial_1080_1080.png",
       "sizes": "1080x1080",
       "type": "image/png",
       "platform": "wide",
-      "label": "In progress word in Lexlet"
+      "label": "In progress solution in Mathlet"
     },
     {
       "src": "screenshot_full_720_1280.png",
       "sizes": "720x1280",
       "type": "image/png",
       "platform": "narrow",
-      "label": "Completed word in Lexlet"
+      "label": "Completed solution in Mathlet"
     },
     {
       "src": "screenshot_full_1080_1080.png",
       "sizes": "1080x1080",
       "type": "image/png",
       "platform": "wide",
-      "label": "Completed word in Lexlet"
+      "label": "Completed solution in Mathlet"
     },
     {
       "src": "screenshot_hint_720_1280.png",
       "sizes": "720x1280",
       "type": "image/png",
       "platform": "narrow",
-      "label": "Hint in Lexlet"
+      "label": "Hint in Mathlet"
     },
     {
       "src": "screenshot_hint_1080_1080.png",
       "sizes": "1080x1080",
       "type": "image/png",
       "platform": "narrow",
-      "label": "Hint in Lexlet"
+      "label": "Hint in Mathlet"
     }
   ]
 }

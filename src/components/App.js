@@ -1,5 +1,5 @@
 import React from "react";
-import Lexlet from "./Lexlet";
+import Mathlet from "./Mathlet";
 import Heart from "./Heart";
 import Rules from "./Rules";
 import Stats from "./Stats";
@@ -53,7 +53,7 @@ export default function App() {
   }, []);
 
   const savedIsFirstGame = JSON.parse(
-    localStorage.getItem("dailyLexletIsFirstGame"),
+    localStorage.getItem("dailyMathletIsFirstGame"),
   );
 
   const [isFirstGame, setIsFirstGame] = React.useState(
@@ -62,13 +62,13 @@ export default function App() {
 
   React.useEffect(() => {
     window.localStorage.setItem(
-      "dailyLexletIsFirstGame",
+      "dailyMathletIsFirstGame",
       JSON.stringify(isFirstGame),
     );
   }, [isFirstGame]);
 
   const savedSawWhatsNew = JSON.parse(
-    localStorage.getItem("dailyLexletSawWhatsNew20230609"),
+    localStorage.getItem("dailyMathletSawWhatsNew20230609"),
   );
 
   const [sawWhatsNew, setSawWhatsNew] = React.useState(
@@ -77,7 +77,7 @@ export default function App() {
 
   React.useEffect(() => {
     window.localStorage.setItem(
-      "dailyLexletSawWhatsNew20230609",
+      "dailyMathletSawWhatsNew20230609",
       JSON.stringify(sawWhatsNew),
     );
   }, [sawWhatsNew]);
@@ -105,7 +105,7 @@ export default function App() {
 
     default:
       return (
-        <Lexlet
+        <Mathlet
           setDisplay={setDisplay}
           setInstallPromptEvent={setInstallPromptEvent}
           showInstallButton={showInstallButton}
@@ -114,7 +114,7 @@ export default function App() {
           dispatchGameState={dispatchGameState}
           setSawWhatsNew={setSawWhatsNew}
           sawWhatsNew={sawWhatsNew}
-        ></Lexlet>
+        ></Mathlet>
       );
   }
 }
