@@ -7,13 +7,15 @@ export function getSeed() {
     .toString()
     .padStart(2, "0")}${currentDate.getDate().toString().padStart(2, "0")}`;
 
-  return seed;
+  return 289; // todo revert this
 }
 
-function getWordLengthsForDay() {
+function getClueLengthsForDay() {
+  //todo earlier days should also include addition only, then add in other operators
+  //todo earlier days can also have smaller grid size
   const today = new Date().getDay();
 
-  const wordLengths = [
+  const clueLengths = [
     [6, 7], // Sunday
     [4, 4],
     [4, 5],
@@ -23,53 +25,39 @@ function getWordLengthsForDay() {
     [6, 6],
   ];
 
-  return wordLengths[today];
+  return clueLengths[today];
 }
 
 export function gameInit() {
   const seed = getSeed();
 
-  const savedState = JSON.parse(localStorage.getItem("dailyLexletState"));
+  const savedState = JSON.parse(localStorage.getItem("dailyMathletState"));
 
   // If today's game is in progress, keep the progress
   if (
     savedState &&
     savedState.seed === seed &&
     savedState.letters &&
-    savedState.colors &&
-    savedState.clueIndexes &&
-    savedState.clueMatches &&
-    savedState.hints &&
     savedState.playedIndexes &&
     savedState.stats
   ) {
-    // Temporary patch to support the green->blue rename
-    const adjustedColors = savedState.colors.map((color) =>
-      color === "green" ? "blue" : color,
-    );
-    return {...savedState, colors: adjustedColors};
+    // todo modify above
+    // return savedState;
   }
 
-  const gridSize = 4;
+  const gridSize = 3;
   const numClues = 5;
-  const easyMode = true;
-  const [minWordLength, maxWordLength] = getWordLengthsForDay();
+  const [minClueLength, maxClueLength] = getClueLengthsForDay();
 
-  // Unlike the original version which returns a random game,
-  //  this returns the one game per day based on the date
-  const [letters, colors, clueIndexes] = getPlayableBoard({
+  const [letters, solutions] = getPlayableBoard({
     gridSize: gridSize,
-    minWordLength: minWordLength,
-    maxWordLength: maxWordLength,
-    easyMode: easyMode,
+    minWordLength: minClueLength,
+    maxWordLength: maxClueLength,
     numClues: numClues,
     seed: seed,
   });
 
-  const clueMatches = clueIndexes.map(() => false);
-  const hints = clueIndexes.map((clue) => clue.map(() => false));
-
-  // If there are already stats, use those
+  // If there are already stats, use those // todo stats should just track how many clues solved per day of week?
   let stats;
   if (savedState && savedState.stats) {
     stats = savedState.stats;
@@ -97,16 +85,14 @@ export function gameInit() {
       },
     };
   }
+  console.log(JSON.stringify(solutions)); // todo can omit this
 
   return {
     seed: seed,
-    letters: letters,
-    colors: colors,
-    clueIndexes: clueIndexes,
-    clueMatches: clueMatches,
+    letters: letters, //todo name letters to symbols everywhere
+    solutions,
     playedIndexes: [],
-    hints: hints,
     stats: stats,
-    result: "",
+    result: "", // todo needed?
   };
 }

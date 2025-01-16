@@ -35,7 +35,7 @@ export default function Mathlet({
     window.localStorage.setItem("dailyMathletState", JSON.stringify(gameState));
   }, [gameState]);
 
-  const isGameOver = false // todo gameState.clueMatches.every((i) => i);
+  const isGameOver = false // todo
 
   if (!sawWhatsNew) {
     return (
@@ -65,11 +65,7 @@ export default function Mathlet({
               dispatchGameState={dispatchGameState}
               seed={gameState.seed}
             ></Countdown>
-          ) : (
-            `Hints used: ${
-              gameState.hints.flatMap((i) => i).filter((i) => i).length
-            }`
-          )}
+          ) : <></>}
         </div>
         <button id="rules" onClick={() => setDisplay("rules")}></button>
         <button
@@ -91,6 +87,7 @@ export default function Mathlet({
           <></>
         )}
       </div>
+      {/* //todo componentize */}
       <div id="clues">
       <div className={`clue`}>{gameState.solutions[0]}</div>
       <div className={`clue`}>{gameState.solutions[1]}</div>
@@ -98,30 +95,13 @@ export default function Mathlet({
       <div className={`clue`}>{gameState.solutions[3]}</div>
       <div className={`clue`}>{gameState.solutions[4]}</div>
       </div>
-      {/* <Clues
-        clueMatches={gameState.clueMatches}
-        hints={gameState.hints}
-        clueColors={gameState.clueIndexes.map((clue) =>
-          clue.map((index) => gameState.colors[index]),
-        )}
-        clueLetters={gameState.clueIndexes.map((clue) =>
-          clue.map((index) => gameState.letters[index]),
-        )}
-        dispatchGameState={dispatchGameState}
-      ></Clues> */}
       {isGameOver ? (
         <GameOver
-          hints={gameState.hints}
-          clueIndexes={gameState.clueIndexes}
-          colors={gameState.colors}
         />
       ) : (
         <CurrentWord
           letters={gameState.playedIndexes.map(
             (index) => gameState.letters[index],
-          )}
-          colors={gameState.playedIndexes.map(
-            (index) => gameState.colors[index],
           )}
         ></CurrentWord>
       )}
@@ -134,9 +114,8 @@ export default function Mathlet({
       )}
       <Board
         letters={gameState.letters}
-        colors={gameState.colors}
         playedIndexes={gameState.playedIndexes}
-        // gameOver={gameState.clueMatches.every((i) => i)} todo
+        gameOver={false} // todo
         dispatchGameState={dispatchGameState}
       ></Board>
     </div>

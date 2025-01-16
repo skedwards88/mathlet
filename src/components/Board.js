@@ -1,6 +1,7 @@
 import React from "react";
+import {getColorForSymbol} from "../logic/getColorForSymbol";
 
-function Letter({letter, color, letterAvailability, index, dispatchGameState}) {
+function Letter({letter, letterAvailability, index, dispatchGameState}) {
   const myRef = React.useRef();
 
   React.useLayoutEffect(() => {
@@ -49,6 +50,7 @@ function Letter({letter, color, letterAvailability, index, dispatchGameState}) {
     });
   }
 
+  const color = getColorForSymbol(letter)
   return (
     <div
       className={`letter ${color}`}
@@ -66,7 +68,6 @@ function Letter({letter, color, letterAvailability, index, dispatchGameState}) {
 
 export default function Board({
   letters,
-  colors,
   playedIndexes,
   gameOver,
   dispatchGameState,
@@ -74,7 +75,6 @@ export default function Board({
   const board = letters.map((letter, index) => (
     <Letter
       letter={letter}
-      color={colors[index]}
       letterAvailability={gameOver ? false : !playedIndexes.includes(index)}
       index={index}
       draggable={false}

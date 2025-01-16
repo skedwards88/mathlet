@@ -293,12 +293,20 @@ button {
   background-color: var(--dark-color);
   touch-action: none;
   justify-content: center;
-  grid-template-columns: repeat(4, var(--board-box-diam));
-  grid-template-rows: repeat(4, var(--board-box-diam));
   margin-bottom: 3vmax;
   justify-self: center;
   align-items: center;
   justify-items: center;
+}
+
+.rows3 {
+  grid-template-columns: repeat(3, var(--board-box-diam));
+  grid-template-rows: repeat(3, var(--board-box-diam));
+}
+
+.rows4 {
+  grid-template-columns: repeat(4, var(--board-box-diam));
+  grid-template-rows: repeat(4, var(--board-box-diam));
 }
 
 #mathlet .letter {
