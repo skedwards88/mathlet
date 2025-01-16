@@ -28,3 +28,4 @@ return false
 
   return true;
 }
+//todo just trycatch mathjs eval instead

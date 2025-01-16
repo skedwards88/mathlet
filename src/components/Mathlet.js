@@ -46,6 +46,7 @@ export default function Mathlet({
     );
   }
 
+  console.log(JSON.stringify(gameState.foundEquations));
   return (
     <div
       className="App"
@@ -87,14 +88,10 @@ export default function Mathlet({
           <></>
         )}
       </div>
-      {/* //todo componentize */}
-      <div id="clues">
-      <div className={`clue`}>{gameState.solutions[0]}</div>
-      <div className={`clue`}>{gameState.solutions[1]}</div>
-      <div className={`clue`}>{gameState.solutions[2]}</div>
-      <div className={`clue`}>{gameState.solutions[3]}</div>
-      <div className={`clue`}>{gameState.solutions[4]}</div>
-      </div>
+      <Clues
+      solutions={gameState.solutions}
+      foundEquations={gameState.foundEquations}
+      ></Clues>
       {isGameOver ? (
         <GameOver
         />
@@ -104,13 +101,6 @@ export default function Mathlet({
             (index) => gameState.letters[index],
           )}
         ></CurrentWord>
-      )}
-      {gameState.result ? (
-        <div id="wordResult" className="fadeOut">
-          {gameState.result}
-        </div>
-      ) : (
-        <></>
       )}
       <Board
         letters={gameState.letters}

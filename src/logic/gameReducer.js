@@ -2,6 +2,7 @@ import cloneDeep from "lodash.clonedeep";
 import {checkIfNeighbors} from "@skedwards88/word_logic";
 import {gameInit} from "./gameInit";
 import { isEquationQ } from "./isEquationQ";
+import { evaluate } from "mathjs";
 
 export function gameReducer(currentGameState, payload) {
   if (payload.action === "startWord") {
@@ -9,7 +10,6 @@ export function gameReducer(currentGameState, payload) {
       ...currentGameState,
       wordInProgress: true, // todo rename all word and letter vars
       playedIndexes: [payload.letterIndex],
-      result: "",
     };
   } else if (payload.action === "addLetter") {
     if (!currentGameState.wordInProgress) {
@@ -69,8 +69,19 @@ export function gameReducer(currentGameState, payload) {
     const word = currentGameState.playedIndexes
       .map((index) => currentGameState.letters[index])
       .join("");
-    const isEquation = isEquationQ(word)
-    if (!isEquation) {
+    let isValidEquation = false; //todo could maybe just use value instead of both value and isValidEquation
+    let value;
+    try {
+      value = evaluate(word)
+      if (value != undefined) {
+        isValidEquation = true
+      }
+    } catch (error) {
+      isValidEquation = false;
+      value = undefined;
+    }
+
+    if (!isValidEquation) {
       return {
         ...currentGameState,
         playedIndexes: [],
@@ -78,13 +89,32 @@ export function gameReducer(currentGameState, payload) {
       };
     }
 
-    return {
-      ...currentGameState,
-      playedIndexes: [],
-      wordInProgress: false,
-      result: "",
-      // ...(newStats && {stats: newStats}), todo
-    };
+console.log(typeof(value));
+console.log(typeof(currentGameState.solutions[0]));
+    // Check if the value matches a solution
+    const matchingSolutionIndex = currentGameState.solutions.findIndex(solution => solution === value)
+
+console.log(`matchingSolutionIndex ${matchingSolutionIndex}`);
+
+    if (matchingSolutionIndex === -1) {
+      return {
+        ...currentGameState,
+        playedIndexes: [],
+        wordInProgress: false,
+      };
+    } else {
+      let newFoundEquations = cloneDeep(currentGameState.foundEquations);
+      newFoundEquations[matchingSolutionIndex] = word;
+      // todo only do this if haven't already found a match for that index
+      return {
+        ...currentGameState,
+        playedIndexes: [],
+        wordInProgress: false,
+        foundEquations: newFoundEquations,
+        // ...(newStats && {stats: newStats}), todo
+      };
+    }
+
   } else if (payload.action === "clearStreakIfNeeded") {
     // todo
     return currentGameState

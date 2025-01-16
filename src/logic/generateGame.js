@@ -13,6 +13,9 @@ function getSymbols(gridSize, pseudoRandomGenerator) {
   );
 }
 
+// todo exclude decimal solutions
+// todo exclude solutions that can be made without an operator
+
 export function getPlayableBoard({gridSize, numClues, seed}) {
   let foundPlayableBoard = false;
   let symbols = [];

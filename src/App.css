@@ -253,14 +253,6 @@ button {
   align-self: center;
 }
 
-#mathlet #wordResult {
-  grid-area: currentWord;
-  height: calc(var(--clue-box-diam) * 1.5);
-  overflow: hidden;
-  justify-self: center;
-  align-self: center;
-}
-
 .fadeOut {
   opacity: 0;
   pointer-events: none;
@@ -342,6 +334,7 @@ button {
   opacity: 0.5;
 }
 
+/* todo this is not longer a row of buttons... */
 #mathlet #currentWord,
 .clue {
   display: flex;
@@ -349,6 +342,7 @@ button {
   justify-content: center;
   align-items: center;
   margin: 0.5vmax;
+  font-weight: bold;
 }
 
 #mathlet #clues {
@@ -359,15 +353,6 @@ button {
   align-items: center;
 }
 
-/* clueBox is a button, so remove all button styling */
-.clueBox {
-  all: unset;
-  text-decoration: none;
-  text-align: center;
-  appearance: none;
-}
-
-.clueBox,
 .guessBox {
   min-height: var(--clue-box-diam);
   min-width: var(--clue-box-diam);
@@ -381,7 +366,6 @@ button {
   font-size: calc(var(--default-font-size) * 0.8);
 }
 
-.clueBox:last-child,
 .guessBox:last-child {
   border-right: 2px solid var(--light-color);
 }

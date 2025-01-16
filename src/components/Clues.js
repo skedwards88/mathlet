@@ -1,5 +1,6 @@
 import React from "react";
-
+import { getColorForSymbol } from "../logic/getColorForSymbol";
+//todo might be able to simplify this color mixing logic?
 function convertToRGB(red, yellow, blue) {
   // Convert RYB to RGB
   // I pulled these calculations from the internet and made some tweaks until it looked "right-ish"
@@ -76,53 +77,32 @@ function calculateMixedColor(colors) {
 }
 
 function Clue({
-  clueColors,
-  clueMatch,
-  clueLetters,
-  hint,
-  dispatchGameState,
-  clueIndex,
+  solution,
+  foundEquation,
 }) {
-  const clueSolved = clueMatch || hint.every((i) => i);
-  const boxes = clueColors.map((color, index) => (
-    <button
-      className={`clueBox ${color}`}
-      key={`${index}`}
-      style={
-        clueSolved
-          ? {backgroundColor: `${calculateMixedColor(clueColors)}`}
-          : {}
-      }
-      onClick={() =>
-        dispatchGameState({
-          action: "hint",
-          clueIndex: clueIndex,
-          boxIndex: index,
-        })
-      }
-    >
-      {hint[index] || clueMatch ? clueLetters[index].toUpperCase() : ""}
-    </button>
-  ));
+let color;
+if (foundEquation) {
+  const colors = foundEquation.split("").map(symbol => getColorForSymbol(symbol))
+  color = calculateMixedColor(colors)
+}
 
-  return <div className={`clue ${clueMatch ? "matched" : ""}`}>{boxes}</div>;
+  return <div className={`clue`}
+  style={
+    color
+      ? {color: `${color}`}
+      : {}
+  }>{solution}</div>;
 }
 
 export default function Clues({
-  clueColors,
-  clueMatches,
-  clueLetters,
-  hints,
-  dispatchGameState,
+  solutions,
+  foundEquations,
 }) {
-  const clueDisplays = clueColors.map((clue, index) => (
+  const clueDisplays = solutions.map((clue, index) => (
     <Clue
-      clueColors={clueColors[index]}
-      clueMatch={clueMatches[index]}
-      clueLetters={clueLetters[index]}
+      solution={solutions[index]}
+      foundEquation={foundEquations[index]}
       key={index}
-      hint={hints[index]}
-      dispatchGameState={dispatchGameState}
       clueIndex={index}
     ></Clue>
   ));
