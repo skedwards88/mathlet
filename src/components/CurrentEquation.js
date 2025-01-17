@@ -1,5 +1,5 @@
 import React from "react";
-import { getColorForSymbol } from "../logic/getColorForSymbol";
+import {getColorForSymbol} from "../logic/getColorForSymbol";
 import {evaluate} from "mathjs";
 
 export default function CurrentEquation({symbols}) {
@@ -9,13 +9,18 @@ export default function CurrentEquation({symbols}) {
     </div>
   ));
 
-  let result = ""
+  let result = "";
   try {
     const value = evaluate(symbols.join(""));
-    value != undefined ? result = ` = ${value}` : null // todo can I make this line cleaner?
+    value != undefined ? (result = ` = ${value}`) : null; // todo can I make this line cleaner?
   } catch (error) {
-    result = " = ?"
+    result = " = ?";
   }
 
-  return <div id="currentEquation">{blocks}<div>{result}</div></div>;
+  return (
+    <div id="currentEquation">
+      {blocks}
+      <div>{result}</div>
+    </div>
+  );
 }

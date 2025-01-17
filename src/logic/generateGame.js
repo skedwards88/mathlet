@@ -4,12 +4,26 @@ import {evaluate} from "mathjs";
 import {shuffleArray, pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {findAllEquationIndexes} from "./findAllEquationIndexes";
 
-const possibleSymbols = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "+", "*", "+", "+"]; // todo do beter than just overloading number of operators
+const possibleSymbols = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "+",
+  "+",
+  "*",
+  "+",
+  "+",
+]; // todo do beter than just overloading number of operators
 
 function getSymbols(gridSize, pseudoRandomGenerator) {
-  return Array.from(
-    {length: gridSize * gridSize},
-   () =>  pickRandomItemFromArray(possibleSymbols, pseudoRandomGenerator),
+  return Array.from({length: gridSize * gridSize}, () =>
+    pickRandomItemFromArray(possibleSymbols, pseudoRandomGenerator),
   );
 }
 
@@ -48,7 +62,10 @@ export function getPlayableBoard({gridSize, numClues, seed}) {
       equationIndexesBySolution[solution].push(equationIndexes);
     }
 
-    const allSolutions = shuffleArray(Object.keys(equationIndexesBySolution), pseudoRandomGenerator);
+    const allSolutions = shuffleArray(
+      Object.keys(equationIndexesBySolution),
+      pseudoRandomGenerator,
+    );
 
     // choose 5 solutions // todo can later prefer solutions that are shorter and/or that have fewer possibilities and/or are least similar equations to each other. can maybe also consider the colors they would make
     solutions = allSolutions.slice(0, 5);

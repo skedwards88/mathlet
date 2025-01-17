@@ -90,7 +90,7 @@ export function gameInit() {
   return {
     seed: seed,
     symbols: symbols, //todo name symbols to symbols everywhere
-    solutions: solutions.map(s=>parseInt(s)), // can I keep it in int form earlier so I don't need this conversion?
+    solutions: solutions.map((s) => parseInt(s)), // can I keep it in int form earlier so I don't need this conversion?
     foundEquations: solutions.map(() => undefined),
     playedIndexes: [],
     stats: stats,

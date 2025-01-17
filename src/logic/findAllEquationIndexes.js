@@ -1,5 +1,5 @@
 import {getSurroundingIndexes} from "@skedwards88/word_logic";
-import { isEquationQ } from "./isEquationQ";
+import {isEquationQ} from "./isEquationQ";
 
 export function findAllEquationIndexes({
   symbols,

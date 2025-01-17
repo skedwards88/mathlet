@@ -50,7 +50,7 @@ function Symbol({symbol, symbolAvailability, index, dispatchGameState}) {
     });
   }
 
-  const color = getColorForSymbol(symbol)
+  const color = getColorForSymbol(symbol);
   return (
     <div
       className={`symbol ${color}`}

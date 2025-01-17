@@ -1,14 +1,14 @@
 import cloneDeep from "lodash.clonedeep";
 import {checkIfNeighbors} from "@skedwards88/word_logic";
 import {gameInit} from "./gameInit";
-import { isEquationQ } from "./isEquationQ";
-import { evaluate } from "mathjs";
+import {isEquationQ} from "./isEquationQ";
+import {evaluate} from "mathjs";
 
 export function gameReducer(currentGameState, payload) {
   if (payload.action === "startEquation") {
     return {
       ...currentGameState,
-      equationInProgress: true, // todo rename all equation and symbol vars
+      equationInProgress: true,
       playedIndexes: [payload.symbolIndex],
     };
   } else if (payload.action === "addSymbol") {
@@ -72,9 +72,9 @@ export function gameReducer(currentGameState, payload) {
     let isValidEquation = false; //todo could maybe just use value instead of both value and isValidEquation
     let value;
     try {
-      value = evaluate(equation)
+      value = evaluate(equation);
       if (value != undefined) {
-        isValidEquation = true
+        isValidEquation = true;
       }
     } catch (error) {
       isValidEquation = false;
@@ -89,12 +89,10 @@ export function gameReducer(currentGameState, payload) {
       };
     }
 
-console.log(typeof(value));
-console.log(typeof(currentGameState.solutions[0]));
     // Check if the value matches a solution
-    const matchingSolutionIndex = currentGameState.solutions.findIndex(solution => solution === value)
-
-console.log(`matchingSolutionIndex ${matchingSolutionIndex}`);
+    const matchingSolutionIndex = currentGameState.solutions.findIndex(
+      (solution) => solution === value,
+    );
 
     if (matchingSolutionIndex === -1) {
       return {
@@ -114,10 +112,9 @@ console.log(`matchingSolutionIndex ${matchingSolutionIndex}`);
         // ...(newStats && {stats: newStats}), todo
       };
     }
-
   } else if (payload.action === "clearStreakIfNeeded") {
     // todo
-    return currentGameState
+    return currentGameState;
   } else if (payload.action === "newGame") {
     return gameInit();
   } else {
