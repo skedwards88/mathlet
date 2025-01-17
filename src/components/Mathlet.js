@@ -1,7 +1,7 @@
 import React from "react";
 import Board from "./Board";
 import Clues from "./Clues";
-import CurrentWord from "./CurrentWord";
+import CurrentEquation from "./CurrentEquation";
 import GameOver from "./GameOver";
 import {Countdown} from "./Countdown";
 import WhatsNew from "./WhatsNew";
@@ -55,7 +55,7 @@ export default function Mathlet({
         e.preventDefault();
 
         dispatchGameState({
-          action: "endWord",
+          action: "endEquation",
         });
       }}
     >
@@ -96,14 +96,14 @@ export default function Mathlet({
         <GameOver
         />
       ) : (
-        <CurrentWord
-          letters={gameState.playedIndexes.map(
-            (index) => gameState.letters[index],
+        <CurrentEquation
+          symbols={gameState.playedIndexes.map(
+            (index) => gameState.symbols[index],
           )}
-        ></CurrentWord>
+        ></CurrentEquation>
       )}
       <Board
-        letters={gameState.letters}
+        symbols={gameState.symbols}
         playedIndexes={gameState.playedIndexes}
         gameOver={false} // todo
         dispatchGameState={dispatchGameState}

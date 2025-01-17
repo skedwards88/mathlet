@@ -5,25 +5,25 @@ import { isEquationQ } from "./isEquationQ";
 import { evaluate } from "mathjs";
 
 export function gameReducer(currentGameState, payload) {
-  if (payload.action === "startWord") {
+  if (payload.action === "startEquation") {
     return {
       ...currentGameState,
-      wordInProgress: true, // todo rename all word and letter vars
-      playedIndexes: [payload.letterIndex],
+      equationInProgress: true, // todo rename all equation and symbol vars
+      playedIndexes: [payload.symbolIndex],
     };
-  } else if (payload.action === "addLetter") {
-    if (!currentGameState.wordInProgress) {
+  } else if (payload.action === "addSymbol") {
+    if (!currentGameState.equationInProgress) {
       return currentGameState;
     }
-    // Don't add the letter if it isn't neighboring the current sequence
+    // Don't add the symbol if it isn't neighboring the current sequence
     const isNeighboring = checkIfNeighbors({
       indexA:
         currentGameState.playedIndexes[
           currentGameState.playedIndexes.length - 1
         ],
-      indexB: payload.letterIndex,
-      numColumns: Math.sqrt(currentGameState.letters.length),
-      numRows: Math.sqrt(currentGameState.letters.length),
+      indexB: payload.symbolIndex,
+      numColumns: Math.sqrt(currentGameState.symbols.length),
+      numRows: Math.sqrt(currentGameState.symbols.length),
     });
     if (!isNeighboring) {
       return currentGameState;
@@ -31,21 +31,21 @@ export function gameReducer(currentGameState, payload) {
 
     const newPlayedIndexes = [
       ...currentGameState.playedIndexes,
-      payload.letterIndex,
+      payload.symbolIndex,
     ];
 
     return {
       ...currentGameState,
       playedIndexes: newPlayedIndexes,
     };
-  } else if (payload.action === "removeLetter") {
-    if (!currentGameState.wordInProgress) {
+  } else if (payload.action === "removeSymbol") {
+    if (!currentGameState.equationInProgress) {
       return currentGameState;
     }
-    // Don't remove a letter if the player didn't go back to the letter before the last letter
+    // Don't remove a symbol if the player didn't go back to the symbol before the last symbol
     let newPlayedIndexes = [...currentGameState.playedIndexes];
     const lastIndexPlayed = newPlayedIndexes[newPlayedIndexes.length - 2];
-    if (lastIndexPlayed !== payload.letterIndex) {
+    if (lastIndexPlayed !== payload.symbolIndex) {
       return currentGameState;
     }
 
@@ -58,21 +58,21 @@ export function gameReducer(currentGameState, payload) {
       ...currentGameState,
       playedIndexes: newPlayedIndexes,
     };
-  } else if (payload.action === "endWord") {
-    // Since we end the word on board up or on app up (in case the user swipes off the board), we can end up calling this case twice.
-    // Return early if we no longer have a word in progress.
+  } else if (payload.action === "endEquation") {
+    // Since we end the equation on board up or on app up (in case the user swipes off the board), we can end up calling this case twice.
+    // Return early if we no longer have a equation in progress.
     if (!currentGameState.playedIndexes.length) {
       return currentGameState;
     }
 
     // check if the equation is valid
-    const word = currentGameState.playedIndexes
-      .map((index) => currentGameState.letters[index])
+    const equation = currentGameState.playedIndexes
+      .map((index) => currentGameState.symbols[index])
       .join("");
     let isValidEquation = false; //todo could maybe just use value instead of both value and isValidEquation
     let value;
     try {
-      value = evaluate(word)
+      value = evaluate(equation)
       if (value != undefined) {
         isValidEquation = true
       }
@@ -85,7 +85,7 @@ export function gameReducer(currentGameState, payload) {
       return {
         ...currentGameState,
         playedIndexes: [],
-        wordInProgress: false,
+        equationInProgress: false,
       };
     }
 
@@ -100,16 +100,16 @@ console.log(`matchingSolutionIndex ${matchingSolutionIndex}`);
       return {
         ...currentGameState,
         playedIndexes: [],
-        wordInProgress: false,
+        equationInProgress: false,
       };
     } else {
       let newFoundEquations = cloneDeep(currentGameState.foundEquations);
-      newFoundEquations[matchingSolutionIndex] = word;
+      newFoundEquations[matchingSolutionIndex] = equation;
       // todo only do this if haven't already found a match for that index
       return {
         ...currentGameState,
         playedIndexes: [],
-        wordInProgress: false,
+        equationInProgress: false,
         foundEquations: newFoundEquations,
         // ...(newStats && {stats: newStats}), todo
       };

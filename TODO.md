@@ -9,7 +9,6 @@
 - update whats new
 - delete mobile-drag-drop dependency from lexlet package.json?
 - clone and ref template app
-- refs to "word" and "letter"
 - in lexlet, in getPlayableBoard, gridDimension and gridSize are redundant
 - why is the bundle size large enough to give warnings? are the screenshots being included?
 

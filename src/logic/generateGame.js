@@ -28,7 +28,7 @@ export function getPlayableBoard({gridSize, numClues, seed}) {
     // Pick a random assortment of symbols
     symbols = getSymbols(gridSize, pseudoRandomGenerator);
 
-    // find all possible words
+    // find all possible equations
     const allEquationIndexes = findAllEquationIndexes({
       symbols,
       numColumns: gridSize,

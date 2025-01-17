@@ -37,7 +37,7 @@ export function gameInit() {
   if (
     savedState &&
     savedState.seed === seed &&
-    savedState.letters &&
+    savedState.symbols &&
     savedState.playedIndexes &&
     savedState.stats
   ) {
@@ -49,10 +49,10 @@ export function gameInit() {
   const numClues = 5;
   const [minClueLength, maxClueLength] = getClueLengthsForDay();
 
-  const [letters, solutions] = getPlayableBoard({
+  const [symbols, solutions] = getPlayableBoard({
     gridSize: gridSize,
-    minWordLength: minClueLength,
-    maxWordLength: maxClueLength,
+    minEquationLength: minClueLength,
+    maxEquationLength: maxClueLength,
     numClues: numClues,
     seed: seed,
   });
@@ -89,7 +89,7 @@ export function gameInit() {
 
   return {
     seed: seed,
-    letters: letters, //todo name letters to symbols everywhere
+    symbols: symbols, //todo name symbols to symbols everywhere
     solutions: solutions.map(s=>parseInt(s)), // can I keep it in int form earlier so I don't need this conversion?
     foundEquations: solutions.map(() => undefined),
     playedIndexes: [],
