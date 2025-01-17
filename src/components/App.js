@@ -82,6 +82,10 @@ export default function App() {
     );
   }, [sawWhatsNew]);
 
+  React.useEffect(() => {
+    window.localStorage.setItem("dailyMathletState", JSON.stringify(gameState));
+  }, [gameState]);
+
   if (isFirstGame) {
     return (
       <Rules
@@ -111,6 +115,11 @@ export default function App() {
           showInstallButton={showInstallButton}
           installPromptEvent={installPromptEvent}
           gameState={gameState}
+          solutions={gameState.solutions}
+          foundEquations={gameState.foundEquations}
+          seed={gameState.seed}
+          playedIndexes={gameState.playedIndexes}
+          symbols={gameState.symbols}
           dispatchGameState={dispatchGameState}
           setSawWhatsNew={setSawWhatsNew}
           sawWhatsNew={sawWhatsNew}

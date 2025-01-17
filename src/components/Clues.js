@@ -1,5 +1,5 @@
 import React from "react";
-import { getColorForSymbol } from "../logic/getColorForSymbol";
+import {getColorForSymbol} from "../logic/getColorForSymbol";
 //todo might be able to simplify this color mixing logic?
 function convertToRGB(red, yellow, blue) {
   // Convert RYB to RGB
@@ -76,28 +76,23 @@ function calculateMixedColor(colors) {
   return `rgba(${convertedRed}, ${convertedYellow}, ${convertedBlue}, 0.8)`;
 }
 
-function Clue({
-  solution,
-  foundEquation,
-}) {
-let color;
-if (foundEquation) {
-  const colors = foundEquation.split("").map(symbol => getColorForSymbol(symbol))
-  color = calculateMixedColor(colors)
+function Clue({solution, foundEquation}) {
+  let color;
+  if (foundEquation) {
+    const colors = foundEquation
+      .split("")
+      .map((symbol) => getColorForSymbol(symbol));
+    color = calculateMixedColor(colors);
+  }
+
+  return (
+    <div className={`clue`} style={color ? {color: `${color}`} : {}}>
+      {solution}
+    </div>
+  );
 }
 
-  return <div className={`clue`}
-  style={
-    color
-      ? {color: `${color}`}
-      : {}
-  }>{solution}</div>;
-}
-
-export default function Clues({
-  solutions,
-  foundEquations,
-}) {
+export default function Clues({solutions, foundEquations}) {
   const clueDisplays = solutions.map((clue, index) => (
     <Clue
       solution={solutions[index]}
@@ -109,3 +104,23 @@ export default function Clues({
 
   return <div id="clues">{clueDisplays}</div>;
 }
+
+// const Clues = React.memo(({ solutions, foundEquations }) => {
+//   // Memoize the array of clue displays
+//   const clueDisplays = React.useMemo(
+//     () =>
+//       solutions.map((solution, index) => (
+//         <Clue
+//           solution={solution}
+//           foundEquation={foundEquations[index]}
+//           key={index}
+//           clueIndex={index}
+//         />
+//       )),
+//     [solutions, foundEquations] // Dependencies: only recompute if these change
+//   );
+
+//   return <div id="clues">{clueDisplays}</div>;
+// });
+
+// export default Clues;

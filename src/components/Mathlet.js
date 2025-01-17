@@ -28,14 +28,14 @@ export default function Mathlet({
   setInstallPromptEvent,
   setSawWhatsNew,
   sawWhatsNew,
-  gameState,
   dispatchGameState,
+  solutions,
+  foundEquations,
+  seed,
+  playedIndexes,
+  symbols,
 }) {
-  React.useEffect(() => {
-    window.localStorage.setItem("dailyMathletState", JSON.stringify(gameState));
-  }, [gameState]);
-
-  const isGameOver = false // todo
+  const isGameOver = false; // todo
 
   if (!sawWhatsNew) {
     return (
@@ -46,7 +46,6 @@ export default function Mathlet({
     );
   }
 
-  console.log(JSON.stringify(gameState.foundEquations));
   return (
     <div
       className="App"
@@ -64,9 +63,11 @@ export default function Mathlet({
           {isGameOver ? (
             <Countdown
               dispatchGameState={dispatchGameState}
-              seed={gameState.seed}
+              seed={seed}
             ></Countdown>
-          ) : <></>}
+          ) : (
+            <></>
+          )}
         </div>
         <button id="rules" onClick={() => setDisplay("rules")}></button>
         <button
@@ -88,23 +89,18 @@ export default function Mathlet({
           <></>
         )}
       </div>
-      <Clues
-      solutions={gameState.solutions}
-      foundEquations={gameState.foundEquations}
-      ></Clues>
+
+      <Clues solutions={solutions} foundEquations={foundEquations}></Clues>
       {isGameOver ? (
-        <GameOver
-        />
+        <GameOver />
       ) : (
         <CurrentEquation
-          symbols={gameState.playedIndexes.map(
-            (index) => gameState.symbols[index],
-          )}
+          symbols={playedIndexes.map((index) => symbols[index])}
         ></CurrentEquation>
       )}
       <Board
-        symbols={gameState.symbols}
-        playedIndexes={gameState.playedIndexes}
+        symbols={symbols}
+        playedIndexes={playedIndexes}
         gameOver={false} // todo
         dispatchGameState={dispatchGameState}
       ></Board>
