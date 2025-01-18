@@ -14,6 +14,7 @@ export function findAllEquationIndexes({
     const foundEquationIndexesForIndex = extendEquation({
       currentIndexes: [startingIndex],
       allFoundEquationIndexes: [],
+      solutionsToAvoid: [],
       symbols,
       minEquationLength,
       maxEquationLength,
@@ -33,6 +34,7 @@ export function findAllEquationIndexes({
 function extendEquation({
   currentIndexes, // all indexes in the current equation thus far
   allFoundEquationIndexes, // accumulates over the recursion
+  solutionsToAvoid, // accumulates over the recursion; is numbers present in the grid (so we can later avoid things like 27=27)
   symbols, // constant for all iterations. The symbols in the grid.
   minEquationLength, // constant for all iterations
   maxEquationLength, // constant for all iterations
@@ -55,6 +57,11 @@ function extendEquation({
       .map((index) => symbols[index])
       .join("");
 
+    // if no operators
+    if (/^\d+$/.test(newPotentialEquation)) {
+      solutionsToAvoid.push(newPotentialEquation)
+    }
+
     if (
       newPotentialEquation.length >= minEquationLength &&
       newPotentialEquation.length <= maxEquationLength &&
@@ -67,6 +74,7 @@ function extendEquation({
       extendEquation({
         currentIndexes: extendedIndexes,
         allFoundEquationIndexes,
+        solutionsToAvoid,
         symbols,
         minEquationLength,
         maxEquationLength,
@@ -76,5 +84,5 @@ function extendEquation({
     }
   }
 
-  return allFoundEquationIndexes;
+  return [allFoundEquationIndexes, solutionsToAvoid];
 }

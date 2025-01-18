@@ -7,7 +7,7 @@ export function getSeed() {
     .toString()
     .padStart(2, "0")}${currentDate.getDate().toString().padStart(2, "0")}`;
 
-  return 23; // todo revert this
+  return 12; // todo revert this
 }
 
 //todo earlier days should also include addition only, then add in other operators
@@ -32,7 +32,6 @@ function getOperatorsForDay(day) {
     default:
       return ["+"]
   }
-
 }
 
 export function gameInit() {
@@ -98,7 +97,7 @@ export function gameInit() {
   return {
     seed: seed,
     symbols: symbols,
-    solutions: solutions.map((s) => parseInt(s)), // can I keep it in int form earlier so I don't need this conversion?
+    solutions, // can I keep it in int form earlier so I don't need this conversion?
     foundEquations: solutions.map(() => undefined),
     playedIndexes: [],
     stats: stats,

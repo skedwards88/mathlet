@@ -16,10 +16,6 @@ const digits = [
   "9"
 ];
 
-// todo exclude decimal solutions
-// todo exclude solutions that can be made without an operator
-// todo limit solution to X digits
-
 export function getPlayableBoard({gridSize, operators, numClues, seed}) {
   let foundPlayableBoard = false;
   let symbols = [];
@@ -51,7 +47,7 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
 
     // find all possible "reasonable" equations
     // (i.e. equations that match isEquationQ, not just mathjs.evaluate)
-    const allEquationIndexes = findAllEquationIndexes({
+    const [allEquationIndexes, solutionsToAvoid] = findAllEquationIndexes({
       symbols,
       numColumns: gridSize,
       numRows: gridSize,
@@ -75,10 +71,15 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
       pseudoRandomGenerator,
     );
 
+    // Omit solutions that
+    // - Can be made without an operator (stored in solutionsToAvoid earlier)
+    // - Are more than 4 digits
+    const trimmedSolutions = allSolutions.filter(solution => solution.length < 5 && !solutionsToAvoid.includes(solution))
+
     // choose 5 solutions // todo can later prefer solutions that are shorter and/or that have fewer possibilities and/or are least similar equations to each other. can maybe also consider the colors they would make
-    solutions = allSolutions.slice(0, 5);
+    solutions = trimmedSolutions.slice(0, 5);
     for (const sol in equationIndexesBySolution) {
-      console.log(`${sol} (${equationIndexesBySolution[sol].length}): ${equationIndexesBySolution[sol].map(indexesSeq =>indexesSeq.map(index => symbols[index]).join(""))}`)
+      console.log(`${sol} (${equationIndexesBySolution[sol].length}): ${equationIndexesBySolution[sol].map(indexesSeq =>indexesSeq.map(index => symbols[index]).join("")).join("   ;   ")}`)
     }
 
     // If we don't have enough solutions, try again
@@ -89,5 +90,12 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
     // stop looking
     foundPlayableBoard = true;
   }
+
+  // convert the solutions from strings to ints
+  solutions = solutions.map((solution) => parseInt(solution));
+
+  // sort the solutions
+  solutions = solutions.sort((a,b) => a - b)
+
   return [symbols, solutions];
 }
