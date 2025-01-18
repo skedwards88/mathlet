@@ -29,6 +29,8 @@ function getSymbols(gridSize, pseudoRandomGenerator) {
 
 // todo exclude decimal solutions
 // todo exclude solutions that can be made without an operator
+// todo limit solution to X digits
+// todo use eval instead of equationq?
 
 export function getPlayableBoard({gridSize, numClues, seed}) {
   let foundPlayableBoard = false;
@@ -47,7 +49,7 @@ export function getPlayableBoard({gridSize, numClues, seed}) {
       symbols,
       numColumns: gridSize,
       numRows: gridSize,
-      minEquationLength: 3,
+      minEquationLength: 3, // todo should these be passed in as param that depends on day?
       maxEquationLength: 7,
     });
 

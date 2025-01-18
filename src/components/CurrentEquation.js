@@ -18,8 +18,8 @@ export default function CurrentEquation({symbols}) {
   }
 
   return (
-    <div id="currentEquation">
-      {blocks}
+    <div id="currentEquationAndEvaluation">
+       <div id="currentEquation">{blocks}</div>
       <div>{result}</div>
     </div>
   );

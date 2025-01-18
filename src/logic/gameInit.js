@@ -7,26 +7,11 @@ export function getSeed() {
     .toString()
     .padStart(2, "0")}${currentDate.getDate().toString().padStart(2, "0")}`;
 
-  return 289; // todo revert this
+  return 23; // todo revert this
 }
 
-function getClueLengthsForDay() {
-  //todo earlier days should also include addition only, then add in other operators
-  //todo earlier days can also have smaller grid size
-  const today = new Date().getDay();
-
-  const clueLengths = [
-    [6, 7], // Sunday
-    [4, 4],
-    [4, 5],
-    [4, 6],
-    [5, 6],
-    [5, 6],
-    [6, 6],
-  ];
-
-  return clueLengths[today];
-}
+//todo earlier days should also include addition only, then add in other operators
+//todo earlier days can also have smaller grid size
 
 export function gameInit() {
   const seed = getSeed();
@@ -47,12 +32,9 @@ export function gameInit() {
 
   const gridSize = 3;
   const numClues = 5;
-  const [minClueLength, maxClueLength] = getClueLengthsForDay();
 
   const [symbols, solutions] = getPlayableBoard({
     gridSize: gridSize,
-    minEquationLength: minClueLength,
-    maxEquationLength: maxClueLength,
     numClues: numClues,
     seed: seed,
   });
@@ -85,11 +67,10 @@ export function gameInit() {
       },
     };
   }
-  console.log(JSON.stringify(solutions)); // todo can omit this
 
   return {
     seed: seed,
-    symbols: symbols, //todo name symbols to symbols everywhere
+    symbols: symbols,
     solutions: solutions.map((s) => parseInt(s)), // can I keep it in int form earlier so I don't need this conversion?
     foundEquations: solutions.map(() => undefined),
     playedIndexes: [],

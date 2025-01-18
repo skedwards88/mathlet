@@ -1,7 +1,5 @@
-import cloneDeep from "lodash.clonedeep";
 import {checkIfNeighbors} from "@skedwards88/word_logic";
 import {gameInit} from "./gameInit";
-import {isEquationQ} from "./isEquationQ";
 import {evaluate} from "mathjs";
 
 export function gameReducer(currentGameState, payload) {
@@ -101,7 +99,7 @@ export function gameReducer(currentGameState, payload) {
         equationInProgress: false,
       };
     } else {
-      let newFoundEquations = cloneDeep(currentGameState.foundEquations);
+      let newFoundEquations = [...currentGameState.foundEquations];
       newFoundEquations[matchingSolutionIndex] = equation;
       // todo only do this if haven't already found a match for that index
       return {

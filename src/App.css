@@ -236,7 +236,7 @@ button {
   grid-template-areas:
     "controls"
     "clues"
-    "currentEquation"
+    "currentEquationAndEvaluation"
     "board";
   grid-template-rows:
     auto
@@ -245,8 +245,8 @@ button {
     auto;
 }
 
-#mathlet #currentEquation {
-  grid-area: currentEquation;
+#mathlet #currentEquationAndEvaluation {
+  grid-area: currentEquationAndEvaluation;
   height: calc(var(--clue-box-diam) * 1.5);
   overflow: hidden;
   justify-self: center;
@@ -267,7 +267,7 @@ button {
 }
 
 #gameOver {
-  grid-area: currentEquation;
+  grid-area: currentEquationAndEvaluation;
   font-size: calc(var(--default-font-size) * 0.75);
   display: flex;
   flex-direction: column;
@@ -334,8 +334,14 @@ button {
   opacity: 0.5;
 }
 
+#mathlet #currentEquation,
+#mathlet #currentEquationAndEvaluation {
+  flex-wrap: wrap;
+  height: fit-content;
+}
 /* todo this is not longer a row of buttons... */
 #mathlet #currentEquation,
+#mathlet #currentEquationAndEvaluation,
 .clue {
   display: flex;
   flex-direction: row;
