@@ -12,7 +12,7 @@ export default function CurrentEquation({symbols}) {
   let result = "";
   try {
     const value = evaluate(symbols.join(""));
-    value != undefined ? (result = ` = ${value}`) : null; // todo can I make this line cleaner?
+    value != undefined ? (result = ` = ${+value.toFixed(29)}`) : null; // todo can I make this line cleaner?
   } catch (error) {
     result = " = ?";
   }

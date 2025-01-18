@@ -1,16 +1,42 @@
+import {evaluate, isInteger} from "mathjs";
+
 export function isEquationQ(potentialEquation) {
+  // Some of these cases technically do evaluate,
+  // but we don't want to consider for the "actual" solution
+  // (so use mathjs.evaluate instead for determining if a user's solution is valid)
+
+  let value;
+  try {
+    value = evaluate(potentialEquation)
+  } catch (error) {
+    value = undefined;
+  }
+
+  // false if can't evaluate
+  if (value === undefined) {
+    return false
+  }
+
+  // false if evaluates to a decimal
+  if (!isInteger(value)) {
+    return false
+  }
+
   // false if 0 operators
   if (/^\d+$/.test(potentialEquation)) {
     return false;
   }
+
   // false if operator at start
   if (/^[^\d]/.test(potentialEquation)) {
     return false;
   }
+
   // false if operator at end
   if (/[^\d]$/.test(potentialEquation)) {
     return false;
   }
+
   // false if any operators next to each other
   if (/[^\d]{2,}/.test(potentialEquation)) {
     return false;
@@ -21,11 +47,10 @@ export function isEquationQ(potentialEquation) {
     return false;
   }
 
-  // false if any numbers larger than 2
+  // false if any numbers larger than 2 digits
   if (/\d{3,}/.test(potentialEquation)) {
     return false;
   }
 
   return true;
 }
-//todo just trycatch mathjs eval instead

@@ -13,6 +13,28 @@ export function getSeed() {
 //todo earlier days should also include addition only, then add in other operators
 //todo earlier days can also have smaller grid size
 
+function getOperatorsForDay(day) {
+  switch (day) {
+    case 1: // Mon
+      return ["+"]
+    case 2: // Tues
+      return ["+"]
+    case 3: // Wed
+      return ["+","-"]
+    case 4: // Thurs
+      return ["+","-"]
+    case 5: // Fri
+      return ["*"]
+    case 6: // Sat
+      return ["*","/"]
+    case 7: // Sun
+      return ["+","-","*","/"]
+    default:
+      return ["+"]
+  }
+
+}
+
 export function gameInit() {
   const seed = getSeed();
 
@@ -33,9 +55,14 @@ export function gameInit() {
   const gridSize = 3;
   const numClues = 5;
 
+  const dayOfWeek = new Date().getDay();
+  const operatorsForDay = getOperatorsForDay(dayOfWeek);
+
+
   const [symbols, solutions] = getPlayableBoard({
     gridSize: gridSize,
     numClues: numClues,
+    operators: operatorsForDay,
     seed: seed,
   });
 
