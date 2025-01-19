@@ -7,7 +7,15 @@ export function getSeed() {
     .toString()
     .padStart(2, "0")}${currentDate.getDate().toString().padStart(2, "0")}`;
 
-  return 12232; // todo revert this
+  return seed;
+}
+
+function getRandomSeed() {
+  // Gets a seed based on the current time, which
+  // should effectively give the impression of a
+  // "random" game each time a new game is generated based on the seed
+  const currentDate = new Date();
+  return currentDate.getTime().toString();
 }
 
 //todo earlier days can also have smaller grid size
@@ -33,8 +41,15 @@ function getOperatorsForDay(day) {
   }
 }
 
-export function gameInit() {
-  const seed = getSeed();
+function getOperatorsForDifficulty(difficultyLevel) {
+  const adjLevel = difficultyLevel === 7 ? 0 : difficultyLevel;
+  return getOperatorsForDay(adjLevel)
+}
+
+export function gameInit({difficultyLevel=1}) {
+  console.log(`init ${difficultyLevel}`);
+  // const seed = getSeed(); // todo revert to getseed
+  const seed = getRandomSeed();
 
   const savedState = JSON.parse(localStorage.getItem("dailyMathletState"));
 
@@ -54,8 +69,8 @@ export function gameInit() {
   const numClues = 5;
 
   const dayOfWeek = new Date().getDay();
-  const operatorsForDay = getOperatorsForDay(dayOfWeek);
-
+  // const operatorsForDay = getOperatorsForDay(dayOfWeek);
+  const operatorsForDay = getOperatorsForDifficulty(difficultyLevel); //todo revert to getOperatorsForDay
 
   const [symbols, solutions] = getPlayableBoard({
     gridSize: gridSize,

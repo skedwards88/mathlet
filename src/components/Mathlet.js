@@ -69,6 +69,27 @@ export default function Mathlet({
             <></>
           )}
         </div>
+
+        {/* todo this is temporary? */}
+        <div id="settingSliderContainer">
+          <div className="settingSliderValue">–</div>
+          <input
+            id="difficultyLevel"
+            className="difficultyLevel"
+            type="range"
+            min="1"
+            max="7"
+            defaultValue={1}
+            onTouchEnd={(event) => dispatchGameState({action: "newGame", difficultyLevel: event.target.value})}
+          />
+          <div className="settingSliderValue">+</div>
+        </div>
+
+        {/* todo this is temporary? */}
+        <button id="newGame"
+         onClick={() => dispatchGameState({action: "newGame"})}
+        ></button>
+
         <button id="rules" onClick={() => setDisplay("rules")}></button>
         <button
           id="stats"

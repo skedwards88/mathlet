@@ -114,7 +114,7 @@ export function gameReducer(currentGameState, payload) {
     // todo
     return currentGameState;
   } else if (payload.action === "newGame") {
-    return gameInit();
+    return gameInit({difficultyLevel: payload.difficultyLevel});
   } else {
     console.log(`unknown action: ${payload.action}`);
     return {...currentGameState};
