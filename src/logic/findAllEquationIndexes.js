@@ -9,9 +9,10 @@ export function findAllEquationIndexes({
   maxEquationLength,
 }) {
   let foundEquationIndexes = [];
+  let foundSolutionsToAvoid = [];
 
   for (let startingIndex = 0; startingIndex < symbols.length; startingIndex++) {
-    const foundEquationIndexesForIndex = extendEquation({
+    const [foundEquationIndexesForIndex, foundSolutionsToAvoidForIndex] = extendEquation({
       currentIndexes: [startingIndex],
       allFoundEquationIndexes: [],
       solutionsToAvoid: [],
@@ -26,9 +27,13 @@ export function findAllEquationIndexes({
       ...foundEquationIndexes,
       ...foundEquationIndexesForIndex,
     ];
+    foundSolutionsToAvoid = [
+      ...foundSolutionsToAvoid,
+      ...foundSolutionsToAvoidForIndex
+    ]
   }
 
-  return foundEquationIndexes;
+  return [foundEquationIndexes, foundSolutionsToAvoid];
 }
 
 function extendEquation({

@@ -35,7 +35,7 @@ function getOperatorsForDay(day) {
     case 6: // Sat
       return ["*","/"]
     case 7: // Sun
-      return ["+","-","*","/"]
+      return ["+","-","*","/"] // todo this isn't guaranteed to be hard if pick all +
     default:
       return ["+"]
   }
@@ -50,6 +50,7 @@ export function gameInit({difficultyLevel=1}) {
   console.log(`init ${difficultyLevel}`);
   // const seed = getSeed(); // todo revert to getseed
   const seed = getRandomSeed();
+  // const seed = "1737259321148";
 
   const savedState = JSON.parse(localStorage.getItem("dailyMathletState"));
 

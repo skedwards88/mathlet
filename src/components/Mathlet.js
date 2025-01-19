@@ -80,7 +80,7 @@ export default function Mathlet({
             min="1"
             max="7"
             defaultValue={1}
-            onTouchEnd={(event) => dispatchGameState({action: "newGame", difficultyLevel: event.target.value})}
+            onTouchEnd={(event) => dispatchGameState({action: "newGame", difficultyLevel: parseInt(event.target.value)})}
           />
           <div className="settingSliderValue">+</div>
         </div>
