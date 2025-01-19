@@ -5,6 +5,7 @@ import CurrentEquation from "./CurrentEquation";
 import GameOver from "./GameOver";
 import {Countdown} from "./Countdown";
 import WhatsNew from "./WhatsNew";
+import Settings from "./Settings";
 
 async function handleInstall(installPromptEvent, setInstallPromptEvent) {
   console.log("handling install");
@@ -35,6 +36,13 @@ export default function Mathlet({
   playedIndexes,
   symbols,
 }) {
+  const [selectedOptions, setSelectedOptions] = React.useState({
+    "+": true,
+    "-": false,
+    "*": false,
+    "/": false,
+  });
+
   const isGameOver = false; // todo
 
   if (!sawWhatsNew) {
@@ -71,23 +79,15 @@ export default function Mathlet({
         </div>
 
         {/* todo this is temporary? */}
-        <div id="settingSliderContainer">
-          <div className="settingSliderValue">–</div>
-          <input
-            id="difficultyLevel"
-            className="difficultyLevel"
-            type="range"
-            min="1"
-            max="7"
-            defaultValue={1}
-            onTouchEnd={(event) => dispatchGameState({action: "newGame", difficultyLevel: parseInt(event.target.value)})}
-          />
-          <div className="settingSliderValue">+</div>
-        </div>
+      <Settings
+          dispatchGameState={dispatchGameState}
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
+        ></Settings>
 
         {/* todo this is temporary? */}
         <button id="newGame"
-         onClick={() => dispatchGameState({action: "newGame"})}
+         onClick={() => dispatchGameState({action: "newGame", selectedOptions})}
         ></button>
 
         <button id="rules" onClick={() => setDisplay("rules")}></button>

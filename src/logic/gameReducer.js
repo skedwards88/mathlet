@@ -114,7 +114,8 @@ export function gameReducer(currentGameState, payload) {
     // todo
     return currentGameState;
   } else if (payload.action === "newGame") {
-    return gameInit({difficultyLevel: payload.difficultyLevel});
+    const operators = Object.keys(payload.selectedOptions).filter(operator => payload.selectedOptions[operator]) // todo cleaner way?
+    return gameInit({operators});
   } else {
     console.log(`unknown action: ${payload.action}`);
     return {...currentGameState};

@@ -46,8 +46,8 @@ function getOperatorsForDifficulty(difficultyLevel) {
   return getOperatorsForDay(adjLevel)
 }
 
-export function gameInit({difficultyLevel=1}) {
-  console.log(`init ${difficultyLevel}`);
+export function gameInit({operators=["+"]}) {
+  console.log(JSON.stringify(operators));
   // const seed = getSeed(); // todo revert to getseed
   const seed = getRandomSeed();
   // const seed = "1737259321148";
@@ -71,12 +71,12 @@ export function gameInit({difficultyLevel=1}) {
 
   const dayOfWeek = new Date().getDay();
   // const operatorsForDay = getOperatorsForDay(dayOfWeek);
-  const operatorsForDay = getOperatorsForDifficulty(difficultyLevel); //todo revert to getOperatorsForDay
+  // const operatorsForDay = getOperatorsForDifficulty(difficultyLevel); //todo revert to getOperatorsForDay
 
   const [symbols, solutions] = getPlayableBoard({
     gridSize: gridSize,
     numClues: numClues,
-    operators: operatorsForDay,
+    operators,
     seed: seed,
   });
 
