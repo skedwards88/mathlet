@@ -79,15 +79,18 @@ export default function Mathlet({
         </div>
 
         {/* todo this is temporary? */}
-      <Settings
+        <Settings
           dispatchGameState={dispatchGameState}
           selectedOptions={selectedOptions}
           setSelectedOptions={setSelectedOptions}
         ></Settings>
 
         {/* todo this is temporary? */}
-        <button id="newGame"
-         onClick={() => dispatchGameState({action: "newGame", selectedOptions})}
+        <button
+          id="newGame"
+          onClick={() =>
+            dispatchGameState({action: "newGame", selectedOptions})
+          }
         ></button>
 
         <button id="rules" onClick={() => setDisplay("rules")}></button>

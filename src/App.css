@@ -344,6 +344,7 @@ button {
   flex-wrap: wrap;
   min-height: fit-content;
 }
+
 #mathlet #currentEquation,
 #mathlet #currentEquationAndEvaluation,
 .clue {

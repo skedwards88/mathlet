@@ -1,20 +1,14 @@
 import seedrandom from "seedrandom";
 import {evaluate} from "mathjs";
 
-import {shuffleArray, pickRandomItemFromArray, pickRandomIntBetween} from "@skedwards88/word_logic";
+import {
+  shuffleArray,
+  pickRandomItemFromArray,
+  pickRandomIntBetween,
+} from "@skedwards88/word_logic";
 import {findAllEquationIndexes} from "./findAllEquationIndexes";
 
-const digits = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9"
-];
+const digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 export function getPlayableBoard({gridSize, operators, numClues, seed}) {
   let foundPlayableBoard = false;
@@ -22,8 +16,8 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
   let solutions = [];
 
   // The board should be 1/4-1/3 operators
-  const minOperators = Math.round(gridSize * gridSize / 4)
-  const maxOperators = Math.round(gridSize * gridSize / 3)
+  const minOperators = Math.round((gridSize * gridSize) / 4);
+  const maxOperators = Math.round((gridSize * gridSize) / 3);
 
   // Create a new seedable random number generator
   let pseudoRandomGenerator = seedrandom(seed);
@@ -31,9 +25,13 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
   while (!foundPlayableBoard) {
     console.log(`START ROUND #######`);
     // Pick a random assortment of symbols
-    const numOperators = pickRandomIntBetween(minOperators, maxOperators, pseudoRandomGenerator);
+    const numOperators = pickRandomIntBetween(
+      minOperators,
+      maxOperators,
+      pseudoRandomGenerator,
+    );
 
-    const numDigits = (gridSize*gridSize) - numOperators;
+    const numDigits = gridSize * gridSize - numOperators;
 
     const operatorPool = Array.from({length: numOperators}, () =>
       pickRandomItemFromArray(operators, pseudoRandomGenerator),
@@ -43,7 +41,10 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
       pickRandomItemFromArray(digits, pseudoRandomGenerator),
     );
 
-    symbols = shuffleArray([...operatorPool, ...digitPool], pseudoRandomGenerator);
+    symbols = shuffleArray(
+      [...operatorPool, ...digitPool],
+      pseudoRandomGenerator,
+    );
 
     // find all possible "reasonable" equations
     // (i.e. equations that match isEquationQ, not just mathjs.evaluate)
@@ -75,12 +76,25 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
     // - Can be made without an operator (stored in solutionsToAvoid earlier)
     // - Are more than 4 digits
     // - Are negative
-    const trimmedSolutions = allSolutions.filter(solution => solution > 0 && solution.length < 5 && !solutionsToAvoid.includes(solution))
+    const trimmedSolutions = allSolutions.filter(
+      (solution) =>
+        solution > 0 &&
+        solution.length < 5 &&
+        !solutionsToAvoid.includes(solution),
+    );
 
     // choose 5 solutions // todo can later prefer solutions that are shorter and/or that have fewer possibilities and/or are least similar equations to each other. can maybe also consider the colors they would make
     solutions = trimmedSolutions.slice(0, 5);
     for (const sol in equationIndexesBySolution) {
-      console.log(`${sol} (${equationIndexesBySolution[sol].length}): ${equationIndexesBySolution[sol].map(indexesSeq =>indexesSeq.map(index => symbols[index]).join("")).join("   ;   ")}`)
+      console.log(
+        `${sol} (${
+          equationIndexesBySolution[sol].length
+        }): ${equationIndexesBySolution[sol]
+          .map((indexesSeq) =>
+            indexesSeq.map((index) => symbols[index]).join(""),
+          )
+          .join("   ;   ")}`,
+      );
     }
 
     // If we don't have enough solutions, try again
@@ -96,7 +110,7 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
   solutions = solutions.map((solution) => parseInt(solution));
 
   // sort the solutions
-  solutions = solutions.sort((a,b) => a - b)
+  solutions = solutions.sort((a, b) => a - b);
 
   return [symbols, solutions];
 }

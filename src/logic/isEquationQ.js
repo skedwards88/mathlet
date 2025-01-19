@@ -7,19 +7,19 @@ export function isEquationQ(potentialEquation) {
 
   let value;
   try {
-    value = evaluate(potentialEquation)
+    value = evaluate(potentialEquation);
   } catch (error) {
     value = undefined;
   }
 
   // false if can't evaluate
   if (value === undefined) {
-    return false
+    return false;
   }
 
   // false if evaluates to a decimal
   if (!isInteger(value)) {
-    return false
+    return false;
   }
 
   // false if 0 operators

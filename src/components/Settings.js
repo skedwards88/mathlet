@@ -1,16 +1,18 @@
 import React from "react";
 
-export default function Settings({dispatchGameState, selectedOptions, setSelectedOptions}) {
-
-
+export default function Settings({
+  dispatchGameState,
+  selectedOptions,
+  setSelectedOptions,
+}) {
   const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
-    let newSelections = {...selectedOptions, [name]: checked}
+    const {name, checked} = event.target;
+    let newSelections = {...selectedOptions, [name]: checked};
 
     // Only if at least one option is still true
     if (Object.values(newSelections).includes(true)) {
       setSelectedOptions(newSelections);
-      dispatchGameState({action: "newGame",selectedOptions: newSelections})
+      dispatchGameState({action: "newGame", selectedOptions: newSelections});
     }
   };
 

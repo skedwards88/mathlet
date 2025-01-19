@@ -23,30 +23,30 @@ function getRandomSeed() {
 function getOperatorsForDay(day) {
   switch (day) {
     case 1: // Mon
-      return ["+"]
+      return ["+"];
     case 2: // Tues
-      return ["+"]
+      return ["+"];
     case 3: // Wed
-      return ["+","-"]
+      return ["+", "-"];
     case 4: // Thurs
-      return ["+","-"]
+      return ["+", "-"];
     case 5: // Fri
-      return ["*"]
+      return ["*"];
     case 6: // Sat
-      return ["*","/"]
+      return ["*", "/"];
     case 7: // Sun
-      return ["+","-","*","/"] // todo this isn't guaranteed to be hard if pick all +
+      return ["+", "-", "*", "/"]; // todo this isn't guaranteed to be hard if pick all +
     default:
-      return ["+"]
+      return ["+"];
   }
 }
 
 function getOperatorsForDifficulty(difficultyLevel) {
   const adjLevel = difficultyLevel === 7 ? 0 : difficultyLevel;
-  return getOperatorsForDay(adjLevel)
+  return getOperatorsForDay(adjLevel);
 }
 
-export function gameInit({operators=["+"]}) {
+export function gameInit({operators = ["+"]}) {
   console.log(JSON.stringify(operators));
   // const seed = getSeed(); // todo revert to getseed
   const seed = getRandomSeed();

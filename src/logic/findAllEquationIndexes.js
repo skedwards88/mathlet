@@ -12,16 +12,17 @@ export function findAllEquationIndexes({
   let foundSolutionsToAvoid = [];
 
   for (let startingIndex = 0; startingIndex < symbols.length; startingIndex++) {
-    const [foundEquationIndexesForIndex, foundSolutionsToAvoidForIndex] = extendEquation({
-      currentIndexes: [startingIndex],
-      allFoundEquationIndexes: [],
-      solutionsToAvoid: [],
-      symbols,
-      minEquationLength,
-      maxEquationLength,
-      numColumns,
-      numRows,
-    });
+    const [foundEquationIndexesForIndex, foundSolutionsToAvoidForIndex] =
+      extendEquation({
+        currentIndexes: [startingIndex],
+        allFoundEquationIndexes: [],
+        solutionsToAvoid: [],
+        symbols,
+        minEquationLength,
+        maxEquationLength,
+        numColumns,
+        numRows,
+      });
 
     foundEquationIndexes = [
       ...foundEquationIndexes,
@@ -29,8 +30,8 @@ export function findAllEquationIndexes({
     ];
     foundSolutionsToAvoid = [
       ...foundSolutionsToAvoid,
-      ...foundSolutionsToAvoidForIndex
-    ]
+      ...foundSolutionsToAvoidForIndex,
+    ];
   }
 
   return [foundEquationIndexes, foundSolutionsToAvoid];
@@ -64,7 +65,7 @@ function extendEquation({
 
     // if no operators
     if (/^\d+$/.test(newPotentialEquation)) {
-      solutionsToAvoid.push(newPotentialEquation)
+      solutionsToAvoid.push(newPotentialEquation);
     }
 
     if (
