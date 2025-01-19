@@ -337,7 +337,7 @@ button {
 #mathlet #currentEquation,
 #mathlet #currentEquationAndEvaluation {
   flex-wrap: wrap;
-  height: fit-content;
+  min-height: fit-content;
 }
 /* todo this is not longer a row of buttons... */
 #mathlet #currentEquation,
