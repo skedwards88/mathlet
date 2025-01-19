@@ -1,9 +1,8 @@
 # Mathlet
 
-A spatial math game.
-
 🚧 This game is in early stages of playtesting. Expect some bugs and upcoming changes! 👷‍♀️
 
+A spatial math game.
 
 **Players:** 1
 
