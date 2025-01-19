@@ -125,6 +125,9 @@ export default function Mathlet({
         gameOver={false} // todo
         dispatchGameState={dispatchGameState}
       ></Board>
+
+      {/* todo this is temporary? */}
+      <small id="seed">{`game id ${seed}`}</small>
     </div>
   );
 }
