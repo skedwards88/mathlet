@@ -351,6 +351,10 @@ button {
   font-weight: bold;
 }
 
+.clue {
+  transition: color 3s ease;
+}
+
 #mathlet #clues {
   grid-area: clues;
   display: flex;

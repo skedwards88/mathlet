@@ -1,79 +1,42 @@
 import React from "react";
 import {getColorForSymbol} from "../logic/getColorForSymbol";
-//todo might be able to simplify this color mixing logic?
-function convertToRGB(red, yellow, blue) {
-  // Convert RYB to RGB
-  // I pulled these calculations from the internet and made some tweaks until it looked "right-ish"
 
-  // Subtract the "whiteness"
-  const whiteness = Math.min(red, yellow, blue);
-  red -= whiteness;
-  yellow -= whiteness;
-  blue -= whiteness;
-
-  // Get the "green" from the yellow and blue
-  let green = Math.min(yellow, blue);
-  yellow -= green;
-  blue -= green;
-
-  // Do more adjusting
-  if (blue && green) {
-    blue *= 2.0;
-    green *= 2.0;
-  }
-
-  // Redistribute the remaining yellow
-  red += yellow;
-  green += yellow;
-
-  // Add the "whiteness" back
-  red += whiteness;
-  green += whiteness;
-  blue += whiteness;
-
-  // Normalize to 255 max if needed
-  const maxValue = Math.max(red, green, blue);
-  if (maxValue > 255) {
-    red = Math.round((red / maxValue) * 255);
-    green = Math.round((green / maxValue) * 255);
-    blue = Math.round((blue / maxValue) * 255);
-  }
-
-  return [red, green, blue];
-}
-
-function calculateMixedColor(colors) {
-  // Convert a list of red/yellow/blue color names
-  // to an rbga value reflecting the mixture of the colors
-
-  const rybLookup = {
-    red: [169, 6, 67],
-    yellow: [45, 189, 10],
-    blue: [36, 66, 199],
-  };
-
-  let redSum = 0;
-  let yellowSum = 0;
-  let blueSum = 0;
+function getGreenColor(colors) {
+  let blueParts = 0;
+  let yellowParts = 0;
 
   for (const color of colors) {
-    const [red, yellow, blue] = rybLookup[color];
-    redSum += red;
-    yellowSum += yellow;
-    blueSum += blue;
+    if (color === "yellow") {
+      yellowParts++;
+    }
+    if (color === "blue") {
+      blueParts++;
+    }
   }
 
-  const redAverage = redSum / colors.length;
-  const yellowAverage = yellowSum / colors.length;
-  const blueAverage = blueSum / colors.length;
+  if (yellowParts === 0 && blueParts === 0) {
+    return; //todo error? just return mid green?
+  }
 
-  const [convertedRed, convertedYellow, convertedBlue] = convertToRGB(
-    redAverage,
-    yellowAverage,
-    blueAverage,
+  // Normalize the ratio of yellow to total parts
+  const totalParts = yellowParts + blueParts;
+  const yellowRatio = yellowParts / totalParts;
+
+  const limeGreen = {red: 191, green: 255, blue: 0}; // Yellow green
+  const bluishGreen = {red: 0, green: 106, blue: 108}; // Blue green
+
+  // Interpolate between lime green and bluish green
+  const red = Math.round(
+    limeGreen.red * yellowRatio + bluishGreen.red * (1 - yellowRatio),
+  );
+  const green = Math.round(
+    limeGreen.green * yellowRatio + bluishGreen.green * (1 - yellowRatio),
+  );
+  const blue = Math.round(
+    limeGreen.blue * yellowRatio + bluishGreen.blue * (1 - yellowRatio),
   );
 
-  return `rgba(${convertedRed}, ${convertedYellow}, ${convertedBlue}, 0.8)`;
+  return `rgb(${red}, ${green}, ${blue})`;
 }
 
 function Clue({solution, foundEquation}) {
@@ -82,7 +45,7 @@ function Clue({solution, foundEquation}) {
     const colors = foundEquation
       .split("")
       .map((symbol) => getColorForSymbol(symbol));
-    color = calculateMixedColor(colors);
+    color = getGreenColor(colors);
   }
 
   return (
