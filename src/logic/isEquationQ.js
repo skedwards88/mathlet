@@ -22,6 +22,16 @@ export function isEquationQ(potentialEquation) {
     return false;
   }
 
+  // false if evaluates to a negative number
+  if (value < 0) {
+    return false;
+  }
+
+  // false if more than 4 digits
+  if (value.toString().length > 4) {
+    return false;
+  }
+
   // false if 0 operators
   if (/^\d+$/.test(potentialEquation)) {
     return false;

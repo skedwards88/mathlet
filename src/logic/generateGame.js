@@ -72,15 +72,9 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
       pseudoRandomGenerator,
     );
 
-    // Omit solutions that
-    // - Can be made without an operator (stored in solutionsToAvoid earlier)
-    // - Are more than 4 digits
-    // - Are negative
+    // Omit solutions that can be made without an operator (stored in solutionsToAvoid earlier)
     const trimmedSolutions = allSolutions.filter(
-      (solution) =>
-        solution > 0 &&
-        solution.length < 5 &&
-        !solutionsToAvoid.includes(solution),
+      (solution) => !solutionsToAvoid.includes(solution),
     );
 
     // choose 5 solutions // todo can later prefer solutions that are shorter and/or that have fewer possibilities and/or are least similar equations to each other. can maybe also consider the colors they would make
