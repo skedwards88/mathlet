@@ -16,7 +16,7 @@ export function findAllEquationIndexes({
       extendEquation({
         currentIndexes: [startingIndex],
         allFoundEquationIndexes: [],
-        solutionsToAvoid: [],
+        solutionsToAvoid: [symbols[startingIndex]],
         symbols,
         minEquationLength,
         maxEquationLength,
