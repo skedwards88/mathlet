@@ -1,4 +1,5 @@
 import React from "react";
+import { getRenderedOperator } from "../logic/getRenderedOperator";
 
 export default function Settings({
   dispatchGameState,
@@ -26,7 +27,7 @@ export default function Settings({
             checked={selectedOptions[option]}
             onChange={handleCheckboxChange}
           />
-          {option}
+          {getRenderedOperator(option)}
         </label>
       ))}
     </form>
