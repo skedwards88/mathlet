@@ -1,5 +1,5 @@
 import React from "react";
-import { getRenderedOperator } from "../logic/getRenderedOperator";
+import {getRenderedOperator} from "../logic/getRenderedOperator";
 
 export default function Settings({
   dispatchGameState,

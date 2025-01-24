@@ -1,10 +1,10 @@
 export function getRenderedOperator(operator) {
   switch (operator) {
     case "/":
-      return "÷"
+      return "÷";
 
     case "*":
-      return "×"
+      return "×";
 
     default:
       return operator;

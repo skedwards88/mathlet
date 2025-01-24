@@ -1,6 +1,6 @@
 import React from "react";
 import {getColorForSymbol} from "../logic/getColorForSymbol";
-import { getRenderedOperator } from "../logic/getRenderedOperator";
+import {getRenderedOperator} from "../logic/getRenderedOperator";
 
 function Symbol({symbol, symbolAvailability, index, dispatchGameState}) {
   const myRef = React.useRef();
