@@ -3,10 +3,27 @@ import {evaluate} from "mathjs";
 
 import {
   shuffleArray,
-  pickRandomItemFromArray,
   pickRandomIntBetween,
+  pickRandomItemsFromArray,
 } from "@skedwards88/word_logic";
 import {findAllEquationIndexes} from "./findAllEquationIndexes";
+
+//todo can move to word logic package
+function pickRandomWithPerfectDistribution(
+  inputArray,
+  numberOfItems,
+  pseudoRandomGenerator,
+) {
+  const whole = Math.floor(numberOfItems / inputArray.length);
+  const partial = numberOfItems % inputArray.length;
+
+  const picked = [
+    ...Array(whole).fill(inputArray).flat(),
+    ...pickRandomItemsFromArray(inputArray, partial, pseudoRandomGenerator),
+  ];
+
+  return shuffleArray(picked, pseudoRandomGenerator);
+}
 
 const digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
@@ -24,7 +41,7 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
 
   while (!foundPlayableBoard) {
     console.log(`START ROUND #######`);
-    // Pick a random assortment of symbols
+    // Pick a random assortment of symbols (but with an even distribution for the operators)
     const numOperators = pickRandomIntBetween(
       minOperators,
       maxOperators,
@@ -33,12 +50,16 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
 
     const numDigits = gridSize * gridSize - numOperators;
 
-    const operatorPool = Array.from({length: numOperators}, () =>
-      pickRandomItemFromArray(operators, pseudoRandomGenerator),
+    const operatorPool = pickRandomWithPerfectDistribution(
+      operators,
+      numOperators,
+      pseudoRandomGenerator,
     );
 
-    const digitPool = Array.from({length: numDigits}, () =>
-      pickRandomItemFromArray(digits, pseudoRandomGenerator),
+    const digitPool = pickRandomItemsFromArray(
+      digits,
+      numDigits,
+      pseudoRandomGenerator,
     );
 
     symbols = shuffleArray(
