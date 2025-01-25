@@ -23,7 +23,7 @@ function getGreenColor(colors) {
   const yellowRatio = yellowParts / totalParts;
 
   const limeGreen = {red: 191, green: 255, blue: 0}; // Yellow green
-  const bluishGreen = {red: 0, green: 106, blue: 108}; // Blue green
+  const bluishGreen = {red: 0, green: 200, blue: 170}; // Blue green
 
   // Interpolate between lime green and bluish green
   const red = Math.round(
