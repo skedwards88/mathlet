@@ -31,6 +31,7 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
   let foundPlayableBoard = false;
   let symbols = [];
   let solutions = [];
+  let solutionIndexes = [];
 
   // The board should be 1/4-1/3 operators
   const minOperators = Math.round((gridSize * gridSize) / 4);
@@ -117,6 +118,13 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
       continue;
     }
 
+    // sort the solutions
+    solutions = solutions.sort((a, b) => a - b);
+
+    solutionIndexes = solutions.map(
+      (solution) => equationIndexesBySolution[solution][0],
+    );
+
     // stop looking
     foundPlayableBoard = true;
   }
@@ -124,8 +132,5 @@ export function getPlayableBoard({gridSize, operators, numClues, seed}) {
   // convert the solutions from strings to ints
   solutions = solutions.map((solution) => parseInt(solution));
 
-  // sort the solutions
-  solutions = solutions.sort((a, b) => a - b);
-
-  return [symbols, solutions];
+  return [symbols, solutions, solutionIndexes];
 }

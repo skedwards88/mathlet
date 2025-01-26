@@ -114,8 +114,9 @@ export default function App() {
           setInstallPromptEvent={setInstallPromptEvent}
           showInstallButton={showInstallButton}
           installPromptEvent={installPromptEvent}
-          gameState={gameState}
           solutions={gameState.solutions}
+          hintsGiven={gameState.hintsGiven}
+          currentHint={gameState.currentHint}
           foundEquations={gameState.foundEquations}
           seed={gameState.seed}
           playedIndexes={gameState.playedIndexes}

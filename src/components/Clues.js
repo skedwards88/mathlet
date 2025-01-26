@@ -39,7 +39,7 @@ function getGreenColor(colors) {
   return `rgb(${red}, ${green}, ${blue})`;
 }
 
-function Clue({solution, foundEquation}) {
+function Clue({solution, foundEquation, index, dispatchGameState}) {
   let color;
   if (foundEquation) {
     const colors = foundEquation
@@ -49,19 +49,28 @@ function Clue({solution, foundEquation}) {
   }
 
   return (
-    <div className={`clue`} style={color ? {color: `${color}`} : {}}>
+    <div
+      className={`clue`}
+      style={color ? {color: `${color}`} : {}}
+      //todo only allow to click on hint if that clue is not solved yet
+      onClick={() =>
+        dispatchGameState({action: "getHint", requestedHintIndex: index})
+      }
+    >
       {solution}
     </div>
   );
 }
 
-export default function Clues({solutions, foundEquations}) {
+export default function Clues({solutions, foundEquations, dispatchGameState}) {
   const clueDisplays = solutions.map((clue, index) => (
     <Clue
       solution={solutions[index]}
+      index={index}
       foundEquation={foundEquations[index]}
       key={index}
       clueIndex={index}
+      dispatchGameState={dispatchGameState}
     ></Clue>
   ));
 

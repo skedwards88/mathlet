@@ -6,6 +6,7 @@ import GameOver from "./GameOver";
 import {Countdown} from "./Countdown";
 import WhatsNew from "./WhatsNew";
 import Settings from "./Settings";
+import Hint from "./Hint";
 
 async function handleInstall(installPromptEvent, setInstallPromptEvent) {
   console.log("handling install");
@@ -31,6 +32,8 @@ export default function Mathlet({
   sawWhatsNew,
   dispatchGameState,
   solutions,
+  hintsGiven,
+  currentHint,
   foundEquations,
   seed,
   playedIndexes,
@@ -114,14 +117,31 @@ export default function Mathlet({
         )}
       </div>
 
-      <Clues solutions={solutions} foundEquations={foundEquations}></Clues>
-      {isGameOver ? (
-        <GameOver />
+      <Clues
+        solutions={solutions}
+        foundEquations={foundEquations}
+        hintsGiven={hintsGiven}
+        dispatchGameState={dispatchGameState}
+      ></Clues>
+
+      {/* todo simplify */}
+      {currentHint === undefined ? (
+        isGameOver ? (
+          <GameOver />
+        ) : (
+          <CurrentEquation
+            symbols={playedIndexes.map((index) => symbols[index])}
+          ></CurrentEquation>
+        )
       ) : (
-        <CurrentEquation
-          symbols={playedIndexes.map((index) => symbols[index])}
-        ></CurrentEquation>
+        <Hint
+          symbols={hintsGiven[currentHint].map((index) =>
+            index === undefined ? "?" : symbols[index],
+          )}
+          value={solutions[currentHint]}
+        ></Hint>
       )}
+
       <Board
         symbols={symbols}
         playedIndexes={playedIndexes}

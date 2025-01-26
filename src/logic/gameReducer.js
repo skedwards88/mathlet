@@ -1,6 +1,7 @@
 import {checkIfNeighbors} from "@skedwards88/word_logic";
 import {gameInit} from "./gameInit";
 import {evaluate} from "mathjs";
+import cloneDeep from "lodash.clonedeep";
 
 export function gameReducer(currentGameState, payload) {
   if (payload.action === "startEquation") {
@@ -8,6 +9,7 @@ export function gameReducer(currentGameState, payload) {
       ...currentGameState,
       equationInProgress: true,
       playedIndexes: [payload.symbolIndex],
+      currentHint: undefined,
     };
   } else if (payload.action === "addSymbol") {
     if (!currentGameState.equationInProgress) {
@@ -108,6 +110,31 @@ export function gameReducer(currentGameState, payload) {
         equationInProgress: false,
         foundEquations: newFoundEquations,
         // ...(newStats && {stats: newStats}), todo
+      };
+    }
+  } else if (payload.action === "getHint") {
+    const hintIndexIndexToReplace = currentGameState.hintsGiven[
+      payload.requestedHintIndex
+    ].findIndex((i) => i === undefined);
+    // Only if we have more hints to give for the selected clue
+    if (hintIndexIndexToReplace >= 0) {
+      let newHintsGiven = cloneDeep(currentGameState.hintsGiven);
+      const newHintValueAtIndexIndex =
+        currentGameState.solutionIndexes[payload.requestedHintIndex][
+          hintIndexIndexToReplace
+        ];
+      newHintsGiven[payload.requestedHintIndex][hintIndexIndexToReplace] =
+        newHintValueAtIndexIndex;
+
+      return {
+        ...currentGameState,
+        currentHint: payload.requestedHintIndex,
+        hintsGiven: newHintsGiven,
+      };
+    } else {
+      return {
+        ...currentGameState,
+        currentHint: payload.requestedHintIndex,
       };
     }
   } else if (payload.action === "clearStreakIfNeeded") {

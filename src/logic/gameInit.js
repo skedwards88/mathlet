@@ -73,7 +73,7 @@ export function gameInit({operators = ["+"]}) {
   // const operatorsForDay = getOperatorsForDay(dayOfWeek);
   // const operatorsForDay = getOperatorsForDifficulty(difficultyLevel); //todo revert to getOperatorsForDay
 
-  const [symbols, solutions] = getPlayableBoard({
+  const [symbols, solutions, solutionIndexes] = getPlayableBoard({
     gridSize: gridSize,
     numClues: numClues,
     operators,
@@ -112,8 +112,11 @@ export function gameInit({operators = ["+"]}) {
   return {
     seed: seed,
     symbols: symbols,
-    solutions, // can I keep it in int form earlier so I don't need this conversion?
+    solutions,
+    solutionIndexes,
+    hintsGiven: solutionIndexes.map((indexes) => indexes.map(() => undefined)),
     foundEquations: solutions.map(() => undefined),
+    currentHint: undefined,
     // foundEquations: ["+","1+2","1+2+3","1+2+3+4","1234+3456"],
     playedIndexes: [],
     stats: stats,
