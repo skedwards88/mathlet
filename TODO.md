@@ -2,19 +2,11 @@
 
 - screenshots need to be updated
 - favicons and maskable icon need to be updated
-- ghpages needs to be set up
-- heart links to other games should be updated to point to lexlet
-  - and lexlet heart should be updated to include this game
-- rules need to be updated
 - update whats new
 - delete mobile-drag-drop dependency from lexlet package.json?
 - clone and ref template app
 - in lexlet, in getPlayableBoard, gridDimension and gridSize are redundant
 - why is the bundle size large enough to give warnings? are the screenshots being included?
-
-## `README`
-
-- [ ] Customize this for the game
 
 ## PWA
 
@@ -42,3 +34,14 @@
 - [ ] `npm install husky --save-dev`
 - [ ] `npx husky init`
 - [ ] Add a pre-push hook (can copy from https://github.com/skedwards88/deep-space-slime/blob/main/.husky/pre-push)
+
+## Later features
+
+- Add daily challenge. Mention the daily challenge in the rules component.
+
+## Features for release
+
+- Update lexlet to point to this game as the math version. Also link to the game from my other games. Maybe can make a shared component?
+- Add this game to skedwards88.github.io
+- Delete temp_screenshot and update any places that use it
+- customize this readme

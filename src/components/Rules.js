@@ -10,7 +10,12 @@ export default function Rules({
   return (
     <div className="App rules">
       <h1 id="rulesHeader">Mathlet: How to play</h1>
-      <p id="rulesText">{`Swipe to join connecting symbols into an equation that equals a clue.\n\nTap on a clue to get a hint.\n\n The game is easier on Monday and gets harder over the week. Can you win every day?`}</p>
+      <div id="rulesText">
+        <p>
+          Swipe to join connecting symbols into an equation that equals a clue.
+        </p>
+        <p>Tap on a clue to get a hint.</p>
+      </div>
       <button
         id="rulesClose"
         className="close"
