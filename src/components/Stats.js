@@ -69,6 +69,19 @@ export default function Stats({stats, setDisplay}) {
   }
   return (
     <div className="App stats">
+      Coming soon!
+      <button
+        className="close"
+        id="statsClose"
+        onClick={() => setDisplay("game")}
+      >
+        CLOSE
+      </button>
+    </div>
+  );
+
+  return (
+    <div className="App stats">
       <div>
         <StatsNumber
           number={stats.streak}
