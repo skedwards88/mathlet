@@ -1,5 +1,6 @@
 import React from "react";
 import {getColorForSymbol} from "../logic/getColorForSymbol";
+import {getRenderedOperator} from "../logic/getRenderedOperator";
 
 export default function Hint({symbols: hintSymbols, value}) {
   const blocks = hintSymbols.map((symbol, index) => (
@@ -9,16 +10,11 @@ export default function Hint({symbols: hintSymbols, value}) {
         symbol === "?" ? "gray" : getColorForSymbol(symbol)
       }`}
     >
-      {symbol.toUpperCase()}
+      {getRenderedOperator(symbol)}
     </div>
   ));
 
-  let result = "";
-  try {
-    value != undefined ? (result = ` = ${+value.toFixed(29)}`) : null; // todo can I make this line cleaner?
-  } catch (error) {
-    result = " = ?";
-  }
+  const result = ` = ${value}`;
 
   return (
     <div id="currentEquationAndEvaluation">

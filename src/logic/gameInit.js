@@ -47,7 +47,6 @@ function getOperatorsForDifficulty(difficultyLevel) {
 }
 
 export function gameInit({operators = ["+"]}) {
-  console.log(JSON.stringify(operators));
   // const seed = getSeed(); // todo revert to getseed
   const seed = getRandomSeed();
   // const seed = "1737259321148";
