@@ -10,7 +10,7 @@ A spatial math game.
 
 [Play Now!](https://skedwards88.github.io/mathlet)
 
-<img src="src/images/temp_screenshot.png" alt="game screenshot" width="200"/>
+<img src="src/images/screenshots/temp_screenshot.png" alt="game screenshot" width="200"/>
 
 Do you have feedback or ideas for improvement? [Open an issue](https://github.com/skedwards88/mathlet/issues/new).
 

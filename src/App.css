@@ -82,27 +82,27 @@ button {
 }
 
 #rules {
-  background-image: url("./images/info.svg");
+  background-image: url("./images/icons/info.svg");
   grid-area: rules;
 }
 
 #stats {
-  background-image: url("./images/stats.svg");
+  background-image: url("./images/icons/stats.svg");
   grid-area: stats;
 }
 
 #heart {
-  background-image: url("./images/heart.svg");
+  background-image: url("./images/icons/heart.svg");
   grid-area: heart;
 }
 
 #newGame {
-  background-image: url("./images/new_game.svg");
+  background-image: url("./images/icons/new_game.svg");
   grid-area: newGame;
 }
 
 #install {
-  background-image: url("./images/install.svg");
+  background-image: url("./images/icons/install.svg");
   grid-area: install;
 }
 
@@ -190,16 +190,6 @@ button {
   white-space: pre-line;
   margin: 0 2vmax;
   grid-area: text;
-}
-
-#rulesDemo {
-  background-image: url("./images/demo.gif");
-  width: 100vw;
-  height: 50vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  grid-area: demo;
 }
 
 #rulesClose,
