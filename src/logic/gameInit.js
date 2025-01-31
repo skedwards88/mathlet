@@ -18,8 +18,6 @@ function getRandomSeed() {
   return currentDate.getTime().toString();
 }
 
-//todo earlier days can also have smaller grid size
-
 function getOperatorsForDay(day) {
   switch (day) {
     case 1: // Mon
@@ -35,7 +33,7 @@ function getOperatorsForDay(day) {
     case 6: // Sat
       return ["*", "/"];
     case 7: // Sun
-      return ["+", "-", "*", "/"]; // todo this isn't guaranteed to be hard if pick all +
+      return ["+", "-", "*", "/"];
     default:
       return ["+"];
   }

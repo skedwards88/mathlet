@@ -15,7 +15,7 @@ function getGreenColor(colors) {
   }
 
   if (yellowParts === 0 && blueParts === 0) {
-    return; //todo error? just return mid green?
+    return;
   }
 
   // Normalize the ratio of yellow to total parts
@@ -50,12 +50,12 @@ function Clue({solution, foundEquation, index, dispatchGameState}) {
 
   return (
     <div
-      className={`clue`}
+      className={"clue"}
       style={color ? {color: `${color}`} : {}}
-      //todo only allow to click on hint if that clue is not solved yet
-      onClick={() =>
-        dispatchGameState({action: "getHint", requestedHintIndex: index})
-      }
+      {...(!foundEquation && {
+        onClick: () =>
+          dispatchGameState({ action: "getHint", requestedHintIndex: index }),
+      })}
     >
       {solution}
     </div>
@@ -77,6 +77,7 @@ export default function Clues({solutions, foundEquations, dispatchGameState}) {
   return <div id="clues">{clueDisplays}</div>;
 }
 
+//todo remove
 // const Clues = React.memo(({ solutions, foundEquations }) => {
 //   // Memoize the array of clue displays
 //   const clueDisplays = React.useMemo(

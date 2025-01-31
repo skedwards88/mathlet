@@ -141,9 +141,10 @@ export function gameReducer(currentGameState, payload) {
     // todo
     return currentGameState;
   } else if (payload.action === "newGame") {
-    const operators = Object.keys(payload.selectedOptions).filter(
-      (operator) => payload.selectedOptions[operator],
-    ); // todo cleaner way?
+    const operators = Object.entries(payload.selectedOptions)
+      .filter(([, isSelected]) => isSelected)
+      .map(([operator]) => operator);
+
     return gameInit({operators});
   } else {
     console.log(`unknown action: ${payload.action}`);

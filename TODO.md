@@ -9,7 +9,6 @@
 
 ## Set up hook to prevent pushing to main without passing linters
 
-- [ ] `npm install husky --save-dev`
 - [ ] `npx husky init`
 - [ ] Add a pre-push hook (can copy from https://github.com/skedwards88/deep-space-slime/blob/main/.husky/pre-push)
 
@@ -28,11 +27,6 @@
   - To manifest.json
 - Maybe add demo video
 - Investigate why the webpack bundle is large enough to throw a warning
-
-## Lexlet changes
-
-- in lexlet, in getPlayableBoard, gridDimension and gridSize are redundant
-- delete mobile-drag-drop dependency from lexlet package.json?
 
 ## Google Play
 
