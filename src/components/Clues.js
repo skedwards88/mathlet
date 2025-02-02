@@ -54,7 +54,7 @@ function Clue({solution, foundEquation, index, dispatchGameState}) {
       style={color ? {color: `${color}`} : {}}
       {...(!foundEquation && {
         onClick: () =>
-          dispatchGameState({ action: "getHint", requestedHintIndex: index }),
+          dispatchGameState({action: "getHint", requestedHintIndex: index}),
       })}
     >
       {solution}

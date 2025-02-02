@@ -16,7 +16,10 @@ export default function Rules({
         </p>
         <p>Tap on a clue to get a hint.</p>
         {/* TODO remove this note below once fully released */}
-        <p>Thanks for being an early player! If you find any bugs or un-fun experiences, please let me know.</p>
+        <p>
+          Thanks for being an early player! If you find any bugs or un-fun
+          experiences, please let me know.
+        </p>
       </div>
       <button
         id="rulesClose"

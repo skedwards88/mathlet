@@ -27,8 +27,8 @@ export function isEquationQ(potentialEquation) {
     return false;
   }
 
-  // false if more than 4 digits
-  if (value.toString().length > 4) {
+  // false if evaluates to more than 4 digits
+  if (value.toString().length > 2) {
     return false;
   }
 
@@ -59,6 +59,16 @@ export function isEquationQ(potentialEquation) {
 
   // false if any numbers larger than 2 digits
   if (/\d{3,}/.test(potentialEquation)) {
+    return false;
+  }
+
+  // false if just 1+number or number+1
+  if (/^1\+\d+$|^\d+\+1$/.test(potentialEquation)) {
+    return false;
+  }
+
+  // false if includes division by 1
+  if (/\/1(?!\d)/.test(potentialEquation)) {
     return false;
   }
 
