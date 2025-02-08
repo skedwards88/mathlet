@@ -2,7 +2,7 @@
   "name": "Mathlet",
   "short_name": "Mathlet",
   "description": "A spatial math game",
-  "id": "?mathlet=20250127",
+  "id": "https://skedwards88.github.io/mathlet/?mathlet=20250127",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",
