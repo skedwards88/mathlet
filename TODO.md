@@ -15,6 +15,7 @@
 ## Later features
 
 - Add daily challenge. Mention the daily challenge in the rules component.
+- add link to repo home
 
 ## Features for release
 
