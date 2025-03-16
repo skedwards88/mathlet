@@ -72,5 +72,10 @@ export function isEquationQ(potentialEquation) {
     return false;
   }
 
+  // false if includes multiplication by 1
+  if (/\*1(?!\d)/.test(potentialEquation)) {
+    return false;
+  }
+
   return true;
 }
